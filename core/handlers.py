@@ -67,13 +67,6 @@ async def cancel_handler(msg: types.Message, state: FSMContext, raw_state: Optio
     await bot.send_message(msg.from_user.id, _(strings.cancel))
 
 
-@decorators.admin
-@dp.message_handler(state='*', commands=['drop'])
-async def drop_command_handler(msg: types.Message):
-    await db.drop_db()
-    await bot.send_message(msg.from_user.id, _(strings.drop_cmd))
-
-
 @dp.message_handler(commands=['start'], state='*')
 async def start_command_handler(msg: types.Message):
     logging.info("sending message in response for /start command")
@@ -84,26 +77,6 @@ async def start_command_handler(msg: types.Message):
 async def help_command_handler(msg: types.Message):
     user = await db.get_user(chat_id=msg.from_user.id)
     await bot.send_message(msg.chat.id, _(strings.help_cmd).format(name=user.first_name))
-
-
-@dp.message_handler(commands=['feedback'], state='*')
-async def feedback_command_handler(msg: types.Message):
-    await bot.send_message(msg.chat.id, _(strings.feedback_command))
-    await FeedbackDialog.first()
-
-
-@dp.message_handler(state=FeedbackDialog.enter_feedback)
-async def enter_feedback_handler(msg: types.Message, state: FSMContext):
-    await msg.reply(strings.got)
-    await state.finish()
-
-    for admin in telegram.ADMIN_IDS:
-        try:
-            await bot.send_message(admin,
-                                   f"[@{msg.from_user.username} ID: {msg.from_user.id} MESSAGE_ID: {msg.message_id}]"
-                                   f" пишет:\n{msg.text}")
-        except TelegramAPIError:
-            pass
 
 
 @dp.message_handler(commands='language')
