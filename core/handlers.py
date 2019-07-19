@@ -64,31 +64,31 @@ async def cancel_handler(msg: types.Message, state: FSMContext, raw_state: Optio
     if raw_state is None:
         return None
     await state.finish()
-    await bot.send_message(msg.from_user.id, strings.cancel)
+    await bot.send_message(msg.from_user.id, _(strings.cancel))
 
 
 @decorators.admin
 @dp.message_handler(state='*', commands=['drop'])
 async def drop_command_handler(msg: types.Message):
     await db.drop_db()
-    await bot.send_message(msg.from_user.id, strings.drop_cmd)
+    await bot.send_message(msg.from_user.id, _(strings.drop_cmd))
 
 
 @dp.message_handler(commands=['start'], state='*')
 async def start_command_handler(msg: types.Message):
     logging.info("sending message in response for /start command")
-    await bot.send_message(msg.chat.id, strings.start_cmd)
+    await bot.send_message(msg.chat.id, _(strings.start_cmd))
 
 
 @dp.message_handler(commands=['help'], state='*')
 async def help_command_handler(msg: types.Message):
     user = await db.get_user(chat_id=msg.from_user.id)
-    await bot.send_message(msg.chat.id, strings.help_cmd.format(name=user.first_name))
+    await bot.send_message(msg.chat.id, _(strings.help_cmd).format(name=user.first_name))
 
 
 @dp.message_handler(commands=['feedback'], state='*')
 async def feedback_command_handler(msg: types.Message):
-    await bot.send_message(msg.chat.id, strings.feedback_command)
+    await bot.send_message(msg.chat.id, _(strings.feedback_command))
     await FeedbackDialog.first()
 
 
@@ -109,7 +109,7 @@ async def enter_feedback_handler(msg: types.Message, state: FSMContext):
 @dp.message_handler(commands='language')
 async def language_cmd_handler(msg: types.Message):
     await bot.send_message(msg.from_user.id,
-                           text=strings.language_choice,
+                           text=_(strings.language_choice),
                            reply_markup=available_languages_markup)
 
 
@@ -118,23 +118,11 @@ async def language_choice_handler(query: types.CallbackQuery, callback_data: dic
     await query.answer()
     await db.update_user(query.from_user.id,
                          locale=callback_data['user_locale'])
+    from core.strings.scripts import i18n
+    i18n.ctx_locale.set(callback_data['user_locale'])
+
     await bot.send_message(query.from_user.id,
-                           strings.language_set)
-
-
-@decorators.admin
-@dp.message_handler(lambda msg: msg.reply_to_message is not None)
-async def feedback_response_handler(msg: types.Message):
-    txt = msg.reply_to_message.text
-    user_info = txt[txt.find('['): txt.find(']')][1:]
-    chat_id = int(user_info[user_info.find('ID:') + len('ID:') + 1:user_info.find('MESSAGE_ID')])
-    msg_id = int(user_info[user_info.find('MESSAGE_ID:') + len('MESSAGE_ID:') + 1:])
-
-    try:
-        await bot.send_message(chat_id, strings.feedback_response.format(text=msg.text),
-                               reply_to_message_id=msg_id)
-    except TelegramAPIError:
-        pass
+                           _(strings.language_set))
 
 
 @decorators.admin

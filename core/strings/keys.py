@@ -1,20 +1,15 @@
-from .scripts import _
-
 # no f-strings here!
+start_cmd = "start_cmd_text"
+help_cmd = "help_command_text, formats: {name}"
+drop_cmd = "drop_cmd_text"
+feedback_command = 'feedback_command'
+feedback_response = 'Developer answered:\n{text}'
 
-start_cmd = _("start_cmd_text")
-help_cmd = _("help_command_text, formats: {name}")
-drop_cmd = _("drop_cmd_text")
-feedback_command = _('feedback_command')
-feedback_response = _('Developer answered:\n{text}')
+language_choice = 'choose lang'
+language_set = 'Language set!'
 
-language_choice = _('choose lang')
-language_set = _('Language set!')
-
-got = _('got')
-
-
-cancel = _('cancelled')
-mailing_everyone = _('mailing_everyone')
+got = 'got'
 
 
+cancel = 'cancelled'
+mailing_everyone = 'mailing_everyone'

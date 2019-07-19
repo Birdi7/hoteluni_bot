@@ -48,7 +48,7 @@ msgstr "Choose your language"
 
 #: core/strings/keys.py:12
 msgid "Language set!"
-msgstr "Language set!"
+msgstr "Language is set!"
 
 #: core/strings/keys.py:14
 msgid "got"
