@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  main_bot:
+    build:
+      context: .
+      dockerfile: dockerfile
+
+    env_file:
+      - local.env
+
+    volumes:
+      - .:/app
+
+    network_mode: host
