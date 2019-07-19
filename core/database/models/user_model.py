@@ -1,5 +1,5 @@
 from umongo import Document, MotorAsyncIOInstance
-from umongo.fields import IntField, StringField
+from umongo.fields import IntField, StringField, ListField
 
 instance = MotorAsyncIOInstance()
 
@@ -11,3 +11,6 @@ class User(Document):
     username = StringField(allow_none=True)
     last_name = StringField(allow_none=True)
     locale = StringField(allow_none=True)
+    rooms = ListField(StringField())
+    hotel_login = StringField()
+    hotel_password = StringField()
