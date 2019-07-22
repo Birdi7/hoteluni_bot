@@ -6,7 +6,7 @@ import pytz
 from datetime import date, timedelta
 from pathlib import Path
 
-BASE_DIR: Path = Path('.').parent.parent
+BASE_DIR: Path = Path().cwd()
 LOGS_FOLDER: Path = BASE_DIR / "logs"
 
 base_dates_campus_cleaning = {
