@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-07-17 20:37+0300\n"
-"PO-Revision-Date: 2019-07-16 13:08+0300\n"
+"POT-Creation-Date: 2019-07-22 21:12+0300\n"
+"PO-Revision-Date: 2019-07-22 21:06+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
 "Language-Team: ru <LL@li.org>\n"
@@ -19,46 +19,48 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.7.0\n"
 
-#: core/strings/keys.py:5
-msgid "start_cmd_text"
-msgstr "Привет из старта"
-
-#: core/strings/keys.py:6
-msgid "help_command_text, formats: {name}"
-msgstr "Привет из хелпа, {name}"
-
-#: core/strings/keys.py:7
-msgid "drop_cmd_text"
-msgstr "БД сброшена! /start"
-
-#: core/strings/keys.py:8
-msgid "feedback_command"
-msgstr "Отправьте отзыв"
-
-#: core/strings/keys.py:9
-msgid ""
-"Developer answered:\n"
-"{text}"
-msgstr ""
-"Разработчик ответил:\n"
-"{text}"
-
-#: core/strings/keys.py:11
-msgid "choose lang"
-msgstr "Выбери язык"
-
-#: core/strings/keys.py:12
-msgid "Language set!"
-msgstr "Язык установлен!"
-
-#: core/strings/keys.py:14
-msgid "got"
-msgstr "Получено."
-
-#: core/strings/keys.py:17
-msgid "cancelled"
+#: core/handlers.py:79
+msgid "cancel"
 msgstr "Отменено."
 
-#: core/strings/keys.py:18
+#: core/handlers.py:84
+msgid "start_cmd_text"
+msgstr "Привет. Я умею напоминать об уборках в кампусе УИ. Нажми /on для установки напоминания"
+
+#: core/handlers.py:90
+msgid "help_cmd_text, formats: {name}"
+msgstr ""
+"Доступные команды:\n"
+"/language - выбрать язык\n"
+"/on - включить напоминание\n"
+"/off - выключить напоминание\n"
+"/start - приветствие\n"
+"/help - данное сообщение\n"
+
+#: core/handlers.py:96
+msgid "choose language"
+msgstr "Выбери язык"
+
+#: core/handlers.py:102
+msgid "choose_campus"
+msgstr "Выбери кампус"
+
+#: core/handlers.py:124
+msgid "choose_cleaning_reminder_time"
+msgstr "Выбери время напоминания"
+
+#: core/handlers.py:150
+msgid "cleaning_reminder_set"
+msgstr "Напоминание установлено"
+
+#: core/handlers.py:170
+msgid "language is set"
+msgstr "Язык установлен"
+
+#: core/handlers.py:176
 msgid "mailing_everyone"
-msgstr "Следующее ваше сообщение будет отправлено всем пользователям"
+msgstr "Следующее сообщение будет отправлено всем."
+
+#: core/handlers.py:182
+msgid "sent_to_everyone"
+msgstr "Отправлено всем пользователям"

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-07-17 20:37+0300\n"
-"PO-Revision-Date: 2019-07-16 13:08+0300\n"
+"POT-Creation-Date: 2019-07-22 21:12+0300\n"
+"PO-Revision-Date: 2019-07-22 21:06+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
 "Language-Team: en <LL@li.org>\n"
@@ -18,46 +18,50 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.7.0\n"
 
-#: core/strings/keys.py:5
+#: core/handlers.py:79
+msgid "cancel"
+msgstr "Cancelled"
+
+#: core/handlers.py:84
 msgid "start_cmd_text"
-msgstr "Hello from start"
+msgstr "Hi. "
+"I can remind you about cleanings in the IU campuses. "
+"Tap /on to set the notification"
 
-#: core/strings/keys.py:6
-msgid "help_command_text, formats: {name}"
-msgstr "Hello from help, {name}"
+#: core/handlers.py:90
+msgid "help_cmd_text, formats: {name}"
+msgstr "Available commands:\n"
+"/language - choose language\n"
+"/on - set reminder\n"
+"/off - turn off reminder\n"
+"/start - start message\n"
+"/help - help message\n"
 
-#: core/strings/keys.py:7
-msgid "drop_cmd_text"
-msgstr "DB dropped! /start"
 
-#: core/strings/keys.py:8
-msgid "feedback_command"
-msgstr "Send feedback"
+#: core/handlers.py:96
+msgid "choose language"
+msgstr "Choose language"
 
-#: core/strings/keys.py:9
-msgid ""
-"Developer answered:\n"
-"{text}"
-msgstr ""
-"Developer answered:\n"
-"{text}"
+#: core/handlers.py:102
+msgid "choose_campus"
+msgstr "Choose campus"
 
-#: core/strings/keys.py:11
-msgid "choose lang"
-msgstr "Choose your language"
+#: core/handlers.py:124
+msgid "choose_cleaning_reminder_time"
+msgstr "Choose time of reminder"
 
-#: core/strings/keys.py:12
-msgid "Language set!"
-msgstr "Language is set!"
+#: core/handlers.py:150
+msgid "cleaning_reminder_set"
+msgstr "Reminder is set"
 
-#: core/strings/keys.py:14
-msgid "got"
-msgstr "Got."
+#: core/handlers.py:170
+msgid "language is set"
+msgstr "Language is set"
 
-#: core/strings/keys.py:17
-msgid "cancelled"
-msgstr "Cancelled."
-
-#: core/strings/keys.py:18
+#: core/handlers.py:176
 msgid "mailing_everyone"
-msgstr "Your next message will be sent to everyone"
+msgstr "Next message will be sent to every user"
+
+#: core/handlers.py:182
+msgid "sent_to_everyone"
+msgstr "Message is sent to everyone"
