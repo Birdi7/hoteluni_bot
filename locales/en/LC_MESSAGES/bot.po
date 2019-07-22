@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-07-22 21:12+0300\n"
+"POT-Creation-Date: 2019-07-22 22:32+0300\n"
 "PO-Revision-Date: 2019-07-22 21:06+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -18,50 +18,63 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.7.0\n"
 
-#: core/handlers.py:79
+#: core/handlers.py:76
 msgid "cancel"
 msgstr "Cancelled"
 
-#: core/handlers.py:84
+#: core/handlers.py:81
 msgid "start_cmd_text"
-msgstr "Hi. "
-"I can remind you about cleanings in the IU campuses. "
-"Tap /on to set the notification"
+msgstr ""
+"Hi. I can remind you about cleanings in the IU campuses. Tap /on to set "
+"the notification"
 
-#: core/handlers.py:90
+#: core/handlers.py:87
 msgid "help_cmd_text, formats: {name}"
-msgstr "Available commands:\n"
+msgstr ""
+"Available commands:\n"
 "/language - choose language\n"
 "/on - set reminder\n"
 "/off - turn off reminder\n"
 "/start - start message\n"
 "/help - help message\n"
 
-
-#: core/handlers.py:96
+#: core/handlers.py:93
 msgid "choose language"
 msgstr "Choose language"
 
-#: core/handlers.py:102
-msgid "choose_campus"
-msgstr "Choose campus"
-
-#: core/handlers.py:124
-msgid "choose_cleaning_reminder_time"
-msgstr "Choose time of reminder"
-
-#: core/handlers.py:150
-msgid "cleaning_reminder_set"
-msgstr "Reminder is set"
-
-#: core/handlers.py:170
+#: core/handlers.py:106
 msgid "language is set"
 msgstr "Language is set"
 
-#: core/handlers.py:176
+#: core/handlers.py:111 core/handlers.py:218
+msgid "choose_campus"
+msgstr "Choose campus"
+
+#: core/handlers.py:133
+msgid "choose_cleaning_reminder_time"
+msgstr "Choose time of reminder"
+
+#: core/handlers.py:140
+msgid "personal_reminder_cleaning, formats: {number}"
+msgstr "Cleaning at campus <b>{number}</b> is today"
+
+#: core/handlers.py:184
+msgid "cleaning_reminder_set"
+msgstr "Reminder is set"
+
+#: core/handlers.py:221
+msgid "no_reminders_set"
+msgstr "You have no reminders"
+
+#: core/handlers.py:235
+msgid "reminder_is_off"
+msgstr "Reminder is turned off"
+
+#: core/handlers.py:241
 msgid "mailing_everyone"
 msgstr "Next message will be sent to every user"
 
-#: core/handlers.py:182
+#: core/handlers.py:247
 msgid "sent_to_everyone"
 msgstr "Message is sent to everyone"
+

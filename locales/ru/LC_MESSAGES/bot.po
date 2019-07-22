@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-07-22 21:12+0300\n"
+"POT-Creation-Date: 2019-07-22 22:32+0300\n"
 "PO-Revision-Date: 2019-07-22 21:06+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -19,15 +19,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.7.0\n"
 
-#: core/handlers.py:79
+#: core/handlers.py:76
 msgid "cancel"
 msgstr "Отменено."
 
-#: core/handlers.py:84
+#: core/handlers.py:81
 msgid "start_cmd_text"
-msgstr "Привет. Я умею напоминать об уборках в кампусе УИ. Нажми /on для установки напоминания"
+msgstr ""
+"Привет. Я умею напоминать об уборках в кампусе УИ. Нажми /on для "
+"установки напоминания"
 
-#: core/handlers.py:90
+#: core/handlers.py:87
 msgid "help_cmd_text, formats: {name}"
 msgstr ""
 "Доступные команды:\n"
@@ -37,30 +39,43 @@ msgstr ""
 "/start - приветствие\n"
 "/help - данное сообщение\n"
 
-#: core/handlers.py:96
+#: core/handlers.py:93
 msgid "choose language"
 msgstr "Выбери язык"
 
-#: core/handlers.py:102
-msgid "choose_campus"
-msgstr "Выбери кампус"
-
-#: core/handlers.py:124
-msgid "choose_cleaning_reminder_time"
-msgstr "Выбери время напоминания"
-
-#: core/handlers.py:150
-msgid "cleaning_reminder_set"
-msgstr "Напоминание установлено"
-
-#: core/handlers.py:170
+#: core/handlers.py:106
 msgid "language is set"
 msgstr "Язык установлен"
 
-#: core/handlers.py:176
+#: core/handlers.py:111 core/handlers.py:218
+msgid "choose_campus"
+msgstr "Выбери кампус"
+
+#: core/handlers.py:133
+msgid "choose_cleaning_reminder_time"
+msgstr "Выбери время напоминания"
+
+#: core/handlers.py:140
+msgid "personal_reminder_cleaning, formats: {number}"
+msgstr "Сегодня уборка в кампусе <b>{number}</b>"
+
+#: core/handlers.py:184
+msgid "cleaning_reminder_set"
+msgstr "Напоминание установлено"
+
+#: core/handlers.py:221
+msgid "no_reminders_set"
+msgstr "Нет установленных напоминаний"
+
+#: core/handlers.py:235
+msgid "reminder_is_off"
+msgstr "Напоминание выключено"
+
+#: core/handlers.py:241
 msgid "mailing_everyone"
 msgstr "Следующее сообщение будет отправлено всем."
 
-#: core/handlers.py:182
+#: core/handlers.py:247
 msgid "sent_to_everyone"
 msgstr "Отправлено всем пользователям"
+

@@ -92,6 +92,18 @@ async def language_cmd_handler(msg: types.Message):
                            reply_markup=available_languages_markup)
 
 
+@dp.callback_query_handler(language_callback.filter())
+async def language_choice_handler(query: types.CallbackQuery, callback_data: dict):
+    await query.answer()
+    await db.update_user(query.from_user.id,
+                         locale=callback_data['user_locale'])
+    from core.strings.scripts import i18n
+    i18n.ctx_locale.set(callback_data['user_locale'])
+
+    await bot.send_message(query.from_user.id,
+                           _("language is set"))
+
+
 @dp.message_handler(commands='on', state='*')
 async def on_cleaning_reminder(msg: types.Message):
     await msg.answer(_("choose_campus"),
@@ -169,7 +181,6 @@ async def set_cleaning_reminder_time(query: types.CallbackQuery,
         await bot.send_message(query.from_user.id,
                                _("cleaning_reminder_set"))
 
-
     else:
         await bot.edit_message_reply_markup(
             query.from_user.id,
@@ -178,16 +189,50 @@ async def set_cleaning_reminder_time(query: types.CallbackQuery,
         )
 
 
-@dp.callback_query_handler(language_callback.filter())
-async def language_choice_handler(query: types.CallbackQuery, callback_data: dict):
-    await query.answer()
-    await db.update_user(query.from_user.id,
-                         locale=callback_data['user_locale'])
-    from core.strings.scripts import i18n
-    i18n.ctx_locale.set(callback_data['user_locale'])
+@dp.message_handler(commands='off', state='*')
+async def off_cleaning_reminder_command_handler(msg: types.Message):
+    from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+    campus_set = set()
+    for campus in range(1, 5):
+        for ind in range(0, 4):
+            if scheduler.get_job(consts.job_id_format.format(
+                chat_id=msg.from_user.id, campus_number=campus, index=ind
+            )):
+                campus_set.add(str(campus))
 
-    await bot.send_message(query.from_user.id,
-                           _("language is set"))
+    if campus_set:
+        campus_set = sorted(campus_set)
+
+        kb = InlineKeyboardMarkup(row_width=2)
+        kb.add(
+            *list(
+                InlineKeyboardButton(str(campus),
+                                     callback_data=
+                                     markups.callbacks.choose_campus_number.new(number=campus))
+                for campus in campus_set
+            )
+        )
+        await msg.answer(_("choose_campus"), reply_markup=kb)
+        await OffCleaningReminderStates.enter_campus_number.set()
+    else:
+        await msg.answer(_("no_reminders_set"))
+
+
+@dp.callback_query_handler(markups.callbacks.choose_campus_number.filter(),
+                            state=OffCleaningReminderStates.enter_campus_number)
+async def off_cleaning_reminder_cb_handler(query: types.CallbackQuery,
+                                           state: FSMContext,
+                                           callback_data: Dict[str, str]):
+    campus = int(callback_data['number'])
+    for i in range(0, 4):
+        if consts.base_dates_campus_cleaning[campus][i]:
+            scheduler.remove_job(job_id=consts.job_id_format.format(
+                chat_id=query.from_user.id, campus_number=campus, index=i
+            ))
+
+    await bot.edit_message_text(_("reminder_is_off"),
+                                chat_id=query.from_user.id,
+                                message_id=query.message.message_id)
 
 
 @decorators.admin
