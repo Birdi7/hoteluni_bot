@@ -26,7 +26,7 @@ from core.utils.states import (
     OffCleaningReminderStates,
 )
 
-from core.configs import telegram, database
+from core.configs import telegram, database, consts
 from core.database import db_worker as db
 from core import strings
 from core.configs.consts import (
@@ -62,7 +62,7 @@ bot = Bot(telegram.BOT_TOKEN, loop=loop, parse_mode=types.ParseMode.HTML)
 dp = Dispatcher(bot, storage=MemoryStorage())
 
 # additional helpers
-scheduler = AsyncIOScheduler(timezone=default_timezone, coalesce=True, misfire_grace_time=10000)
+scheduler = AsyncIOScheduler(timezone=consts.default_timezone, coalesce=True, misfire_grace_time=10000)
 scheduler.add_jobstore(RedisJobStore(db=1,
                                      host=database.REDIS_HOST,
                                      port=database.REDIS_PORT,
@@ -105,7 +105,7 @@ async def on_cleaning_reminder(msg: types.Message):
 
 
 @dp.callback_query_handler(markups.callbacks.choose_campus_number.filter(),
-                            state=SetCleaningReminderStates.enter_campus_number)
+                           state=SetCleaningReminderStates.enter_campus_number)
 async def set_campus_number_cb_handler(query: types.CallbackQuery,
                                        state: FSMContext,
                                        callback_data: Dict[str, str]):
@@ -126,12 +126,37 @@ async def set_campus_number_cb_handler(query: types.CallbackQuery,
     await SetCleaningReminderStates.enter_time.set()
 
 
+async def personal_reminder_about_cleaning(chat_id, campus_number):
+    try:
+        await bot.send_message(chat_id, _("personal_reminder_cleaning, formats: {number}")
+                               .format(number=campus_number))
+    except TelegramAPIError:
+        pass
+
+
 def set_cleaning_reminder(chat_id: int, campus_number: int, time: datetime.time):
-    print(f"set_cleaning_reminder({chat_id}, {campus_number}, {time}")
+    if not isinstance(campus_number, int):
+        campus_number = int(campus_number)
+    for i in range(0, 4):
+        base_data = consts.base_dates_campus_cleaning[campus_number][i]
+        if base_data:
+            run_time = datetime.datetime(year=base_data.year,
+                                         month=base_data.month,
+                                         day=base_data.day,
+                                         hour=time.hour,
+                                         minute=time.hour)
+
+            scheduler.add_job(
+                personal_reminder_about_cleaning, "interval",
+                weeks=4, args=[chat_id, campus_number], next_run_time=run_time,
+                id=consts.job_id_format.format(
+                    chat_id=chat_id, campus_number=campus_number, index=i
+                ), replace_existing=True
+            )
 
 
 @dp.callback_query_handler(inline_timepicker.filter(),
-                            state=SetCleaningReminderStates.enter_time)
+                           state=SetCleaningReminderStates.enter_time)
 async def set_cleaning_reminder_time(query: types.CallbackQuery,
                                      state: FSMContext,
                                      callback_data: Dict[str, str]):
@@ -144,11 +169,10 @@ async def set_cleaning_reminder_time(query: types.CallbackQuery,
                                  query.from_user.id,
                                  proxy['campus_number_set_reminder'],
                                  reminder_time
-                )
+                                 )
 
         await bot.send_message(query.from_user.id,
                                _("cleaning_reminder_set"))
-
 
     else:
         await bot.edit_message_reply_markup(

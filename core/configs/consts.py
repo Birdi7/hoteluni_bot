@@ -17,3 +17,4 @@ base_dates_campus_cleaning = {
 }  # campus_number -> some day with cleaning
 interval_btw_cleaning = timedelta(days=10)
 default_timezone = pytz.timezone("Europe/Moscow")
+job_id_format = "cleaning_reminder:{chat_id}:{campus_number}:{index}"
