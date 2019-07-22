@@ -6,6 +6,7 @@ from aiogram import Bot, Dispatcher, executor, types
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.dispatcher import FSMContext
 from aiogram.utils.exceptions import TelegramAPIError
+from apscheduler.jobstores.redis import RedisJobStore
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from typing import Optional
 from loguru import logger
@@ -17,16 +18,16 @@ from core.utils.middlewares import (
 )
 
 from core.database.models import user_model
-from core.utils.states.feedback import FeedbackDialog
 from core.utils.states.mailing_everyone import MailingEveryoneDialog
-from core.configs import telegram
+from core.configs import telegram, database
 from core.database import db_worker as db
 from core import strings
-from core.configs.consts import LOGS_FOLDER
+from core.configs.consts import (
+    LOGS_FOLDER, default_timezone
+)
 from core.reply_markups.inline import available_languages as available_languages_markup
 from core.reply_markups.callbacks.language_choice import language_callback
 from core.strings.scripts import _
-
 
 logging.basicConfig(format="[%(asctime)s] %(levelname)s : %(name)s : %(message)s",
                     level=logging.INFO, datefmt="%Y-%m-%d at %H:%M:%S")
@@ -51,8 +52,11 @@ logging.getLogger('aiogram').setLevel(logging.INFO)
 loop = asyncio.get_event_loop()
 bot = Bot(telegram.BOT_TOKEN, loop=loop, parse_mode=types.ParseMode.HTML)
 
-scheduler = AsyncIOScheduler()
-# todo add persistent storage if you plan to save smth important in the scheduler
+scheduler = AsyncIOScheduler(timezone=default_timezone, coalesce=True, misfire_grace_time=10000)
+scheduler.add_jobstore(RedisJobStore(db=1,
+                                     host=database.REDIS_HOST,
+                                     port=database.REDIS_PORT,
+                                     password=database.REDIS_PASSWORD))
 scheduler.start()
 
 dp = Dispatcher(bot, storage=MemoryStorage())
