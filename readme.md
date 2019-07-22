@@ -2,30 +2,17 @@
 
 #### Running
 
-This project can be run purely with python,
-but also supports the deployment using [docker-compose](docker_compose)
+This project is deployed using [docker-compose](docker_compose).
+The is **no mongoDB** configuration in the docker-compose file.
+You should use [Atlas](https://www.mongodb.com/cloud/atlas)
+and specify running parameters in the environment file (second step), 
+or add it on your own.   
  
-Purely python running:
-
-0.1. Check if you have the right version of python. Python3 -V should output 3.7+.
-
-   If you are on Windows, remove uvloop from [requirements.txt](requirements.txt)
-   as this lib doesn't work on this OS.
-
-1. Copy an example environment file with `cp example.env local.env`
-2. Add environment variables from `local.env` to your local os. 
-   If you're on UNIX, you can add them only for the python running.
-   Read [here](https://opensourcehacker.com/2012/12/13/configuring-your-python-application-using-environment-variables/)
-   about it
-3. Create a virtual environment with `python3 -m virtualenv venv`. 
-4. Run `source venv/bin/activate` to activate the venv
-5. Install modules with `pip install -r requirements.txt`
-6. Run bot with `python handlers.py` 
-
 With docker-compose:
-1. Copy an example environment file with `cp example.env local.env`
-2. Modify the local environment file named `.env`   
-1. Run `docker-compose up -d --build`
+1. Clone the repo with `git clone https://github.com/Birdi7/hoteluni_bot.git`
+2. Copy an example environment file with `cp example.env local.env`
+3. Modify the local environment file named `.env`   
+4. Run `docker-compose up -d --build`
 
 
 [docker_compose]: <https://docs.docker.com/compose/>
