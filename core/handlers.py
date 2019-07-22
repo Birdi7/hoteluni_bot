@@ -191,7 +191,7 @@ async def language_choice_handler(query: types.CallbackQuery, callback_data: dic
 
 
 @decorators.admin
-@dp.message_handler(commands=['send_to_everyone'])
+@dp.message_handler(commands=['send_to_everyone'], state='*')
 async def send_to_everyone_command_handler(msg: types.Message):
     await bot.send_message(msg.chat.id, _("mailing_everyone"))
     await MailingEveryoneDialog.first()
