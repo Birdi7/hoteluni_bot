@@ -5,4 +5,5 @@ RUN ln -sf /usr/share/zoneinfo/Europe/Moscow /etc/localtime && echo "Europe/Mosc
 COPY requirements.txt /app
 RUN pip install --no-cache-dir -r requirements.txt
 COPY . /app
+RUN make compiletext
 CMD ["python", "-m", "core"]
