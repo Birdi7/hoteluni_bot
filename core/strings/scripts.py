@@ -18,6 +18,6 @@ def on_startup(dp: Dispatcher):
 _ = i18n.lazy_gettext
 
 LANGUAGE_MAPPING = {
-    'ru': 'Русский',
-    'en': 'Английский'
+    'ru': '🇧🇬 Русский',
+    'en': '🇬🇧 English'
 }
