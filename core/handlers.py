@@ -2,6 +2,7 @@ import asyncio
 import datetime
 import logging
 import sys
+from typing import Optional, Dict
 
 from aiogram import Bot, Dispatcher, executor, types
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
@@ -9,47 +10,41 @@ from aiogram.dispatcher import FSMContext
 from aiogram.utils.exceptions import TelegramAPIError
 from apscheduler.jobstores.redis import RedisJobStore
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
-from typing import Optional, Dict
-from loguru import logger
 from inline_timepicker.inline_timepicker import InlineTimepicker
+from loguru import logger
 
+import core.reply_markups as markups
+from core import strings
+from core.configs import telegram, database, consts
+from core.database import db_worker as db
+from core.database.models import user_model
+from core.reply_markups.callbacks.language_choice import language_callback
+from core.reply_markups.inline import available_languages as available_languages_markup
+from core.strings.scripts import _
 from core.utils import decorators
 from core.utils.middlewares import (
     update_middleware,
     logger_middleware
 )
-
-from core.database.models import user_model
 from core.utils.states import (
     MailingEveryoneDialog,
     SetCleaningReminderStates,
     OffCleaningReminderStates,
 )
 
-from core.configs import telegram, database, consts
-from core.database import db_worker as db
-from core import strings
-from core.configs.consts import (
-    LOGS_FOLDER, default_timezone
-)
-from core.reply_markups.inline import available_languages as available_languages_markup
-import core.reply_markups as markups
-from core.reply_markups.callbacks.language_choice import language_callback
-from core.strings.scripts import _
-
 logging.basicConfig(format="[%(asctime)s] %(levelname)s : %(name)s : %(message)s",
                     level=logging.INFO, datefmt="%Y-%m-%d at %H:%M:%S")
 
 logger.remove()
-logger.add(LOGS_FOLDER / "debug_logs.log", format="[{time:YYYY-MM-DD at HH:mm:ss}] {level}: {name} : {message}",
+logger.add(consts.LOGS_FOLDER / "debug_logs.log", format="[{time:YYYY-MM-DD at HH:mm:ss}] {level}: {name} : {message}",
            level=logging.DEBUG,
            colorize=False)
 
-logger.add(LOGS_FOLDER / "info_logs.log", format="[{time:YYYY-MM-DD at HH:mm:ss}] {level}: {name} : {message}",
+logger.add(consts.LOGS_FOLDER / "info_logs.log", format="[{time:YYYY-MM-DD at HH:mm:ss}] {level}: {name} : {message}",
            level=logging.INFO,
            colorize=False)
 
-logger.add(LOGS_FOLDER / "warn_logs.log", format="[{time:YYYY-MM-DD at HH:mm:ss}] {level}: {name} : {message}",
+logger.add(consts.LOGS_FOLDER / "warn_logs.log", format="[{time:YYYY-MM-DD at HH:mm:ss}] {level}: {name} : {message}",
            level=logging.WARNING,
            colorize=False)
 logger.add(sys.stderr, format="[{time:YYYY-MM-DD at HH:mm:ss}] {level}: {name} : {message}", level=logging.INFO,
@@ -173,6 +168,7 @@ async def set_cleaning_reminder_time(query: types.CallbackQuery,
 
         await bot.send_message(query.from_user.id,
                                _("cleaning_reminder_set"))
+
 
     else:
         await bot.edit_message_reply_markup(
