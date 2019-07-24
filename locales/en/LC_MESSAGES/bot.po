@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-07-22 22:32+0300\n"
+"POT-Creation-Date: 2019-07-24 13:15+0300\n"
 "PO-Revision-Date: 2019-07-22 21:06+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -27,7 +27,8 @@ msgid "start_cmd_text"
 msgstr ""
 "Hi. I can remind you about cleanings in the IU campuses. Tap /on to set "
 "the notification.\n"
-"Language was chosen automatically based on your client's language. Use /language to change."
+"Language was chosen automatically based on your client's language. Use "
+"/language to change."
 
 #: core/handlers.py:87
 msgid "help_cmd_text, formats: {name}"
@@ -47,35 +48,38 @@ msgstr "Choose language"
 msgid "language is set"
 msgstr "Language is set"
 
-#: core/handlers.py:111 core/handlers.py:218
+#: core/handlers.py:111 core/handlers.py:220
 msgid "choose_campus"
 msgstr "Choose campus"
 
-#: core/handlers.py:133
+#: core/handlers.py:134
 msgid "choose_cleaning_reminder_time"
 msgstr "Choose time of reminder"
 
-#: core/handlers.py:140
-msgid "personal_reminder_cleaning, formats: {number}"
-msgstr "Cleaning at campus <b>{number}</b> is today"
+#: core/handlers.py:143
+msgid "personal_reminder_cleaning, formats: number"
+msgstr "Cleaning at campus <b>{number}<b> is today"
 
-#: core/handlers.py:184
+#: core/handlers.py:187
 msgid "cleaning_reminder_set"
 msgstr "Reminder is set"
 
-#: core/handlers.py:221
+#: core/handlers.py:223
 msgid "no_reminders_set"
 msgstr "You have no reminders"
 
-#: core/handlers.py:235
+#: core/handlers.py:238
 msgid "reminder_is_off"
 msgstr "Reminder is turned off"
 
-#: core/handlers.py:241
+#: core/handlers.py:246
 msgid "mailing_everyone"
 msgstr "Next message will be sent to every user"
 
-#: core/handlers.py:247
+#: core/handlers.py:252
 msgid "sent_to_everyone"
 msgstr "Message is sent to everyone"
+
+#~ msgid "personal_reminder_cleaning, formats: {number}"
+#~ msgstr "Cleaning at campus <b>{number}</b> is today"
 

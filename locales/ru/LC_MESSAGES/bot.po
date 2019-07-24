@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-07-22 22:32+0300\n"
+"POT-Creation-Date: 2019-07-24 13:15+0300\n"
 "PO-Revision-Date: 2019-07-22 21:06+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -28,7 +28,8 @@ msgid "start_cmd_text"
 msgstr ""
 "Привет. Я умею напоминать об уборках в кампусе УИ. Нажми /on для "
 "установки напоминания.\n"
-"Язык выбран автоматически на основе языка клиента. /language позволяет поменять язык."
+"Язык выбран автоматически на основе языка клиента. /language позволяет "
+"поменять язык."
 
 #: core/handlers.py:87
 msgid "help_cmd_text, formats: {name}"
@@ -48,35 +49,38 @@ msgstr "Выбери язык"
 msgid "language is set"
 msgstr "Язык установлен"
 
-#: core/handlers.py:111 core/handlers.py:218
+#: core/handlers.py:111 core/handlers.py:220
 msgid "choose_campus"
 msgstr "Выбери кампус"
 
-#: core/handlers.py:133
+#: core/handlers.py:134
 msgid "choose_cleaning_reminder_time"
 msgstr "Выбери время напоминания"
 
-#: core/handlers.py:140
-msgid "personal_reminder_cleaning, formats: {number}"
+#: core/handlers.py:143
+msgid "personal_reminder_cleaning, formats: number"
 msgstr "Сегодня уборка в кампусе <b>{number}</b>"
 
-#: core/handlers.py:184
+#: core/handlers.py:187
 msgid "cleaning_reminder_set"
 msgstr "Напоминание установлено"
 
-#: core/handlers.py:221
+#: core/handlers.py:223
 msgid "no_reminders_set"
 msgstr "Нет установленных напоминаний"
 
-#: core/handlers.py:235
+#: core/handlers.py:238
 msgid "reminder_is_off"
 msgstr "Напоминание выключено"
 
-#: core/handlers.py:241
+#: core/handlers.py:246
 msgid "mailing_everyone"
 msgstr "Следующее сообщение будет отправлено всем."
 
-#: core/handlers.py:247
+#: core/handlers.py:252
 msgid "sent_to_everyone"
 msgstr "Отправлено всем пользователям"
+
+#~ msgid "personal_reminder_cleaning, formats: {number}"
+#~ msgstr "Сегодня уборка в кампусе <b>{number}</b>"
 
