@@ -151,7 +151,7 @@ def set_cleaning_reminder(chat_id: int, campus_number: int, time: datetime.time)
                                          month=base_data.month,
                                          day=base_data.day,
                                          hour=time.hour,
-                                         minute=time.hour)
+                                         minute=time.minute)
 
             scheduler.add_job(
                 personal_reminder_about_cleaning, "interval",
