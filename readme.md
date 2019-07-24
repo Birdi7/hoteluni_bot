@@ -1,9 +1,12 @@
-### Template for a telegram bot using [aiogram](https://github.com/aiogram/aiogram) and [umongo](https://github.com/Scille/umongo)
+### HotelUni_bot 
+written with [aiogram](https://github.com/aiogram/aiogram) and [umongo](https://github.com/Scille/umongo)
+
+This bot is able to send reminders about cleanings in he campuses of Innopolis University
 
 #### Running
 
 This project is deployed using [docker-compose](docker_compose).
-The is **no mongoDB** configuration in the docker-compose file.
+There is **no mongoDB** configuration in the docker-compose file.
 You should use [Atlas](https://www.mongodb.com/cloud/atlas)
 and specify running parameters in the environment file (second step), 
 or add it on your own.   
