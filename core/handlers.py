@@ -135,8 +135,8 @@ async def set_campus_number_cb_handler(query: types.CallbackQuery,
 async def personal_reminder_about_cleaning(chat_id, campus_number):
     from core.strings.scripts import i18n
     try:
-        i18n.ctx_locale.set(await i18n.get_user_locale(None, None, user_id=chat_id))
-        await bot.send_message(chat_id, _("personal_reminder_cleaning, formats: number")
+        await bot.send_message(chat_id, _("personal_reminder_cleaning, formats: number",
+                                          locale=await i18n.get_user_locale(None, None, user_id=chat_id))
                                .format(number=campus_number))
     except TelegramAPIError:
         pass
