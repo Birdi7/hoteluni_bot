@@ -16,14 +16,11 @@ services:
     ports:
       - 6379:6379
     restart: always
-    command: [
-      "bash", "-c",
-      '
-      docker-entrypoint.sh
-      --appendonly yes
-      --requirepass ${REDIS_PASSWORD}
-      '
-    ]
+    environment:
+      - PASSWORD: ${REDIS_PASSWORD}
+
+    command: ["redis-server"]
+    args: ["--appendonly", "yes", "--requirepass", "$(REDIS_PASSWORD)"]
 
 
 volumes:
