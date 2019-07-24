@@ -60,8 +60,7 @@ dp = Dispatcher(bot, storage=MemoryStorage())
 scheduler = AsyncIOScheduler(timezone=consts.default_timezone, coalesce=True, misfire_grace_time=10000)
 scheduler.add_jobstore(RedisJobStore(db=1,
                                      host=database.REDIS_HOST,
-                                     port=database.REDIS_PORT,
-                                     password=database.REDIS_PASSWORD))
+                                     port=database.REDIS_PORT))
 scheduler.start()
 
 inline_timepicker = InlineTimepicker()
