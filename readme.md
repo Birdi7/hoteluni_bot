@@ -1,6 +1,9 @@
 ### HotelUni_bot 
 written with [aiogram](https://github.com/aiogram/aiogram) and [umongo](https://github.com/Scille/umongo). Basic structure was taken from [this](https://github.com/Birdi7/Template-Telegram-bot) template.
 
+**Running instance: [@hoteluni_bot](t.me/hoteluni_bot).**
+
+
 This bot can send reminders about cleanings in the campuses of the Innopolis University.
 
 #### Dependencies
