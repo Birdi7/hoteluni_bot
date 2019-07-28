@@ -10,7 +10,7 @@ To run this bot correctly, you need a MongoDB cluster and a Redis server running
 
 This project is deployed using [docker-compose](docker_compose).
 There is **no mongoDB** configuration in the docker-compose file.
-You should use [Atlas](https://www.mongodb.com/cloud/atlas)
+You can use [Atlas](https://www.mongodb.com/cloud/atlas)
 and specify running parameters in the environment file (second step), 
 or add it on your own.   
  
