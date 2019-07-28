@@ -1,7 +1,10 @@
 ### HotelUni_bot 
-written with [aiogram](https://github.com/aiogram/aiogram) and [umongo](https://github.com/Scille/umongo)
+written with [aiogram](https://github.com/aiogram/aiogram) and [umongo](https://github.com/Scille/umongo). Basic structure was taken from [this](https://github.com/Birdi7/Template-Telegram-bot) template.
 
-This bot is able to send reminders about cleanings in he campuses of Innopolis University
+This bot can send reminders about cleanings in the campuses of the Innopolis University.
+
+#### Dependencies
+To run this bot correctly, you need a MongoDB cluster and a Redis server running. The first one is used for the user data, and the second one contains FSM data of users. [APScheduler](https://github.com/agronholm/apscheduler) is used for scheduling events. See [requirements.txt](requirements.txt) for more information.
 
 #### Running
 
