@@ -11,5 +11,4 @@ python-rapidjson==0.7.2
 
 aioredis==1.2.0
 redis==3.2.1
-aiohttp_socks==0.2.2
 https://github.com/Birdi7/inline-timepicker/archive/master.zip
