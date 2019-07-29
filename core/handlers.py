@@ -171,6 +171,12 @@ async def set_cleaning_reminder_time(query: types.CallbackQuery,
     await query.answer()
     reminder_time = inline_timepicker.handle(query.from_user.id, callback_data)
     if reminder_time:
+        await bot.edit_message_text(
+            _("cleaning_reminder_set"),
+            chat_id=query.from_user.id,
+            message_id=query.message.message_id
+        )
+
         async with state.proxy() as proxy:
             loop.run_in_executor(None,
                                  set_cleaning_reminder,
@@ -178,10 +184,6 @@ async def set_cleaning_reminder_time(query: types.CallbackQuery,
                                  proxy['campus_number_set_reminder'],
                                  reminder_time
                                  )
-
-        await bot.send_message(query.from_user.id,
-                               _("cleaning_reminder_set"))
-
     else:
         await bot.edit_message_reply_markup(
             query.from_user.id,
