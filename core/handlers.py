@@ -53,7 +53,9 @@ logger.add(sys.stderr, format="[{time:YYYY-MM-DD at HH:mm:ss}] {level}: {name} :
 logging.getLogger('aiogram').setLevel(logging.INFO)
 
 loop = asyncio.get_event_loop()
-bot = Bot(telegram.BOT_TOKEN, loop=loop, parse_mode=types.ParseMode.HTML)
+bot = Bot(telegram.BOT_TOKEN, loop=loop, parse_mode=types.ParseMode.HTML,
+          proxy='socks5://localhost:8123')
+
 dp = Dispatcher(bot, storage=MemoryStorage())
 
 # additional helpers
@@ -140,7 +142,7 @@ async def personal_reminder_about_cleaning(chat_id, campus_number):
                                           locale=await i18n.get_user_locale(None, None, user_id=chat_id))
                                .format(number=campus_number))
     except TelegramAPIError as e:
-        logger.warn(f"TelegramAPIError while sending reminder: {e}")
+        logger.warning(f"TelegramAPIError while sending reminder: {e}")
 
 
 def set_cleaning_reminder(chat_id: int, campus_number: int, time: datetime.time):
