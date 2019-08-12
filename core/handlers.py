@@ -123,7 +123,8 @@ async def set_campus_number_cb_handler(query: types.CallbackQuery,
     inline_timepicker.init(
         base_time=datetime.time(12, 0),
         min_time=datetime.time(0, 15),
-        max_time=datetime.time(23, 45)
+        max_time=datetime.time(23, 45),
+        minute_step=3
     )
 
     await bot.send_message(query.from_user.id,
@@ -138,8 +139,8 @@ async def personal_reminder_about_cleaning(chat_id, campus_number):
         await bot.send_message(chat_id, _("personal_reminder_cleaning, formats: number",
                                           locale=await i18n.get_user_locale(None, None, user_id=chat_id))
                                .format(number=campus_number))
-    except TelegramAPIError:
-        pass
+    except TelegramAPIError as e:
+        logger.warn(f"TelegramAPIError while sending reminder: {e}")
 
 
 def set_cleaning_reminder(chat_id: int, campus_number: int, time: datetime.time):
