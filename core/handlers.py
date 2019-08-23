@@ -126,7 +126,6 @@ async def set_campus_number_cb_handler(query: types.CallbackQuery,
         base_time=datetime.time(12, 0),
         min_time=datetime.time(0, 15),
         max_time=datetime.time(23, 45),
-        minute_step=3
     )
 
     await bot.send_message(query.from_user.id,
