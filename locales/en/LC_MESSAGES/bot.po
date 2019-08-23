@@ -58,7 +58,7 @@ msgstr "Choose time of reminder"
 
 #: core/handlers.py:143
 msgid "personal_reminder_cleaning, formats: number"
-msgstr "Cleaning at campus <b>{number}<b> is today"
+msgstr "Cleaning at campus <b>{number}</b> is today"
 
 #: core/handlers.py:187
 msgid "cleaning_reminder_set"
