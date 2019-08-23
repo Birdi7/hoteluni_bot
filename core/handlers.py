@@ -33,24 +33,25 @@ from core.utils.states import (
 )
 
 logging.basicConfig(format="[%(asctime)s] %(levelname)s : %(name)s : %(message)s",
-                    level=logging.INFO, datefmt="%Y-%m-%d at %H:%M:%S")
+                    level=logging.ERROR, datefmt="%Y-%m-%d at %H:%M:%S")
 
 logger.remove()
 logger.add(consts.LOGS_FOLDER / "debug_logs.log", format="[{time:YYYY-MM-DD at HH:mm:ss}] {level}: {name} : {message}",
            level=logging.DEBUG,
            colorize=False)
-
 logger.add(consts.LOGS_FOLDER / "info_logs.log", format="[{time:YYYY-MM-DD at HH:mm:ss}] {level}: {name} : {message}",
            level=logging.INFO,
            colorize=False)
-
 logger.add(consts.LOGS_FOLDER / "warn_logs.log", format="[{time:YYYY-MM-DD at HH:mm:ss}] {level}: {name} : {message}",
            level=logging.WARNING,
            colorize=False)
-logger.add(sys.stderr, format="[{time:YYYY-MM-DD at HH:mm:ss}] {level}: {name} : {message}", level=logging.INFO,
+logger.add(consts.LOGS_FOLDER / "error_logs.log", format="[{time:YYYY-MM-DD at HH:mm:ss}] {level}: {name} : {message}",
+           level=logging.ERROR,
+           colorize=False)
+logger.add(sys.stderr, format="[{time:YYYY-MM-DD at HH:mm:ss}] {level}: {name} : {message}", level=logging.ERROR,
            colorize=False)
 
-logging.getLogger('aiogram').setLevel(logging.INFO)
+logging.getLogger('aiogram').setLevel(logging.WARNING)
 
 loop = asyncio.get_event_loop()
 bot = Bot(telegram.BOT_TOKEN, loop=loop, parse_mode=types.ParseMode.HTML)
@@ -138,14 +139,13 @@ async def personal_reminder_about_cleaning(chat_id, campus_number):
     from core.strings.scripts import i18n
     try:
         msg_to_send = _("personal_reminder_cleaning, formats: number",
-                                          locale=await i18n.get_user_locale(None, None, user_id=chat_id))
-                               .format(number=campus_number)
+                                          locale=await i18n.get_user_locale(None, None, user_id=chat_id)).format(number=campus_number)
         logger.info(f"msg_to_send={msg_to_send}")
         await bot.send_message(chat_id, _("personal_reminder_cleaning, formats: number",
                                           locale=await i18n.get_user_locale(None, None, user_id=chat_id))
                                .format(number=campus_number))
     except TelegramAPIError as e:
-        logger.warning(f"TelegramAPIError while sending reminder({chat_id}, {campus_number}): {e}")
+        logger.exception(f"TelegramAPIError while sending reminder({chat_id}, {campus_number}): {e}")
         from core.configs.locales import DEFAULT_USER_LOCALE
         await bot.send_message(chat_id, _("personal_reminder_cleaning, formats: number", locale=DEFAULT_USER_LOCALE))
 

@@ -8,6 +8,8 @@ services:
 
     env_file:
       - .env
+    volumes:
+      - "./logs:/app/logs"
 
   redis:
     image: redis:alpine
