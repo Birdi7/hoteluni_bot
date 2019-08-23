@@ -137,16 +137,15 @@ async def set_campus_number_cb_handler(query: types.CallbackQuery,
 async def personal_reminder_about_cleaning(chat_id, campus_number):
     from core.strings.scripts import i18n
     try:
-        msg_to_send = _("personal_reminder_cleaning, formats: number",
-                                          locale=await i18n.get_user_locale(None, None, user_id=chat_id)).format(number=campus_number)
-        logger.info(f"msg_to_send={msg_to_send}")
         await bot.send_message(chat_id, _("personal_reminder_cleaning, formats: number",
                                           locale=await i18n.get_user_locale(None, None, user_id=chat_id))
                                .format(number=campus_number))
     except TelegramAPIError as e:
-        logger.exception(f"TelegramAPIError while sending reminder({chat_id}, {campus_number}): {e}")
-        from core.configs.locales import DEFAULT_USER_LOCALE
-        await bot.send_message(chat_id, _("personal_reminder_cleaning, formats: number", locale=DEFAULT_USER_LOCALE))
+        msg_text = _("personal_reminder_cleaning, formats: number", locale=await i18n.get_user_locale(None, None, user_id=chat_id)).format(number=campus_number)
+        logger.exception(f"TelegramAPIError while sending reminder({chat_id}, {campus_number})"
+                         f"message={msg_text}, locale={await i18n.get_user_locale(None, None, user_id=chat_id)}"
+                         f": {e}")
+        await bot.send_message(chat_id, f"Сегодня уборка в кампусе <b>{campus_number}</b>")
 
 
 def set_cleaning_reminder(chat_id: int, campus_number: int, time: datetime.time):
