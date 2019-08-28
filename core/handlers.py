@@ -33,7 +33,7 @@ from core.utils.states import (
 )
 
 logging.basicConfig(format="[%(asctime)s] %(levelname)s : %(name)s : %(message)s",
-                    level=logging.ERROR, datefmt="%Y-%m-%d at %H:%M:%S")
+                    level=logging.DEBUG, datefmt="%Y-%m-%d at %H:%M:%S")
 
 logger.remove()
 logger.add(consts.LOGS_FOLDER / "debug_logs.log", format="[{time:YYYY-MM-DD at HH:mm:ss}] {level}: {name} : {message}",
