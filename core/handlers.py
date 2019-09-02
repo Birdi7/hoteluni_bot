@@ -92,7 +92,7 @@ async def language_cmd_handler(msg: types.Message):
     await bot.send_message(msg.from_user.id,
                            text=_("choose language"),
                            reply_markup=available_languages_markup)
-    ChooseLanguageDialog.enter_language_callback.set()
+    await ChooseLanguageDialog.enter_language_callback.set()
 
 
 @dp.callback_query_handler(language_callback.filter(), state=ChooseLanguageDialog.enter_language_callback)
