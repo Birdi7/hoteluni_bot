@@ -2,7 +2,7 @@ import asyncio
 import datetime
 import logging
 import sys
-from typing import Optional, Dict
+from typing import Dict
 
 from aiogram import Bot, Dispatcher, executor, types
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
@@ -30,6 +30,7 @@ from core.utils.states import (
     MailingEveryoneDialog,
     SetCleaningReminderStates,
     OffCleaningReminderStates,
+    ChooseLanguageDialog,
 )
 
 logging.basicConfig(format="[%(asctime)s] %(levelname)s : %(name)s : %(message)s",
@@ -70,7 +71,7 @@ inline_timepicker = InlineTimepicker()
 
 @dp.message_handler(state='*', commands=['cancel'])
 @dp.message_handler(lambda msg: msg.text.lower() == 'cancel', state='*')
-async def cancel_handler(msg: types.Message, state: FSMContext, raw_state: Optional[str] = None):
+async def cancel_handler(msg: types.Message, state: FSMContext):
     await state.finish()
     await bot.send_message(msg.from_user.id, _("cancel"))
 
@@ -91,18 +92,19 @@ async def language_cmd_handler(msg: types.Message):
     await bot.send_message(msg.from_user.id,
                            text=_("choose language"),
                            reply_markup=available_languages_markup)
+    ChooseLanguageDialog.enter_language_callback.set()
 
 
-@dp.callback_query_handler(language_callback.filter())
-async def language_choice_handler(query: types.CallbackQuery, callback_data: dict):
+@dp.callback_query_handler(language_callback.filter(), state=ChooseLanguageDialog.enter_language_callback)
+async def language_choice_handler(query: types.CallbackQuery, state: FSMContext, callback_data: dict):
     await query.answer()
     await db.update_user(query.from_user.id,
                          locale=callback_data['user_locale'])
     from core.strings.scripts import i18n
     i18n.ctx_locale.set(callback_data['user_locale'])
 
-    await bot.send_message(query.from_user.id,
-                           _("language is set"))
+    await bot.send_message(query.from_user.id, _("language is set"))
+    await state.finish()
 
 
 @dp.message_handler(commands='on', state='*')
@@ -190,6 +192,7 @@ async def set_cleaning_reminder_time(query: types.CallbackQuery,
                                  proxy['campus_number_set_reminder'],
                                  reminder_time
                                  )
+        await state.finish()
     else:
         await bot.edit_message_reply_markup(
             query.from_user.id,
@@ -206,7 +209,7 @@ async def off_cleaning_reminder_command_handler(msg: types.Message):
         for ind in range(0, 4):
             if scheduler.get_job(consts.job_id_format.format(
                 chat_id=msg.from_user.id, campus_number=campus, index=ind
-            )):
+                )):
                 campus_set.add(str(campus))
 
     if campus_set:
@@ -228,7 +231,7 @@ async def off_cleaning_reminder_command_handler(msg: types.Message):
 
 
 @dp.callback_query_handler(markups.callbacks.choose_campus_number.filter(),
-                            state=OffCleaningReminderStates.enter_campus_number)
+                           state=OffCleaningReminderStates.enter_campus_number)
 async def off_cleaning_reminder_cb_handler(query: types.CallbackQuery,
                                            state: FSMContext,
                                            callback_data: Dict[str, str]):
@@ -242,6 +245,7 @@ async def off_cleaning_reminder_cb_handler(query: types.CallbackQuery,
     await bot.edit_message_text(_("reminder_is_off"),
                                 chat_id=query.from_user.id,
                                 message_id=query.message.message_id)
+    await state.finish()
 
 
 @decorators.admin
@@ -252,9 +256,10 @@ async def send_to_everyone_command_handler(msg: types.Message):
 
 
 @dp.message_handler(state=MailingEveryoneDialog.enter_message)
-async def mailing_everyone_handler(msg: types.Message):
+async def mailing_everyone_handler(msg: types.Message, state: FSMContext):
     await bot.send_message(msg.chat.id, _("sent_to_everyone"))
     scheduler.add_job(send_to_everyone, args=[msg.text])
+    await state.finish()
 
 
 async def send_to_everyone(txt):
