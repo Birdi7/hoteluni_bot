@@ -49,10 +49,10 @@ logger.add(consts.LOGS_FOLDER / "warn_logs.log", format="[{time:YYYY-MM-DD at HH
 logger.add(consts.LOGS_FOLDER / "error_logs.log", format="[{time:YYYY-MM-DD at HH:mm:ss}] {level}: {name} : {message}",
            level=logging.ERROR,
            colorize=False)
-logger.add(sys.stderr, format="[{time:YYYY-MM-DD at HH:mm:ss}] {level}: {name} : {message}", level=logging.ERROR,
+logger.add(sys.stdout, format="[{time:YYYY-MM-DD at HH:mm:ss}] {level}: {name} : {message}", level=logging.WARNING,
            colorize=False)
 
-logging.getLogger('aiogram').setLevel(logging.WARNING)
+logging.getLogger('aiogram').setLevel(logging.INFO)
 
 loop = asyncio.get_event_loop()
 bot = Bot(telegram.BOT_TOKEN, loop=loop, parse_mode=types.ParseMode.HTML)
