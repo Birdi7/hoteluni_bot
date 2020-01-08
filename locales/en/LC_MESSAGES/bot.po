@@ -50,7 +50,7 @@ msgstr "Language is set"
 
 #: core/handlers.py:112
 msgid "set_is_day_before"
-msgstr "When set the reminder?"
+msgstr "When reminder you?"
 
 #: core/handlers.py:127 core/handlers.py:255
 msgid "choose_campus"
