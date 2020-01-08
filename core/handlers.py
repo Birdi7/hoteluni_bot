@@ -109,8 +109,24 @@ async def language_choice_handler(query: types.CallbackQuery, state: FSMContext,
 
 @dp.message_handler(commands='on', state='*')
 async def on_cleaning_reminder(msg: types.Message):
-    await msg.answer(_("choose_campus"),
-                     reply_markup=markups.inline.campus_numbers)
+    await msg.answer(_("set_is_day_before"),
+                     reply_markup=markups.inline.get_set_is_day_before_kb())
+    await SetCleaningReminderStates.set_is_day_before.set()
+
+
+@dp.callback_query_handler(markups.callbacks.set_is_day_before.filter(),
+                           state=SetCleaningReminderStates.set_is_day_before)
+async def set_is_day_before_cb_handler(query: types.CallbackQuery, state: FSMContext, callback_data: Dict[str, str]):
+    await query.answer()
+    await query.message.delete()
+
+    async with state.proxy() as proxy:
+        proxy['is_day_before'] = callback_data.get('value') == '1'
+
+    await bot.send_message(query.from_user.id,
+                           _("choose_campus"),
+                           reply_markup=markups.inline.campus_numbers)
+
     await SetCleaningReminderStates.enter_campus_number.set()
 
 
@@ -136,21 +152,27 @@ async def set_campus_number_cb_handler(query: types.CallbackQuery,
     await SetCleaningReminderStates.enter_time.set()
 
 
-async def personal_reminder_about_cleaning(chat_id, campus_number):
+async def personal_reminder_about_cleaning(chat_id, campus_number, is_day_before: bool = False):
     from core.strings.scripts import i18n
+    if is_day_before:
+        text = _("personal_reminder_cleaning_day_before", locale=await i18n.get_user_locale(None, None, user_id=chat_id))
+    else:
+        text = _("personal_reminder_cleaning, formats: number", locale=await i18n.get_user_locale(None, None, user_id=chat_id))
+
     try:
-        await bot.send_message(chat_id, _("personal_reminder_cleaning, formats: number",
-                                          locale=await i18n.get_user_locale(None, None, user_id=chat_id))
-                               .format(number=campus_number))
+        await bot.send_message(chat_id, text.format(number=campus_number))
     except TelegramAPIError as e:
-        msg_text = _("personal_reminder_cleaning, formats: number", locale=await i18n.get_user_locale(None, None, user_id=chat_id)).format(number=campus_number)
         logger.exception(f"TelegramAPIError while sending reminder({chat_id}, {campus_number})"
-                         f"message={msg_text}, locale={await i18n.get_user_locale(None, None, user_id=chat_id)}"
+                         f"message={text}, locale={await i18n.get_user_locale(None, None, user_id=chat_id)}"
                          f": {e}")
-        await bot.send_message(chat_id, f"Сегодня уборка в кампусе <b>{campus_number}</b>")
+
+        if is_day_before:
+            await bot.send_message(chat_id, f"Завтра уборка в кампусе <b>{campus_number}</b>")
+        else:
+            await bot.send_message(chat_id, f"Сегодня уборка в кампусе <b>{campus_number}</b>")
 
 
-def set_cleaning_reminder(chat_id: int, campus_number: int, time: datetime.time):
+def set_cleaning_reminder(chat_id: int, campus_number: int, time: datetime.time, is_day_before: bool):
     if not isinstance(campus_number, int):
         campus_number = int(campus_number)
     for i in range(0, 4):
@@ -162,9 +184,12 @@ def set_cleaning_reminder(chat_id: int, campus_number: int, time: datetime.time)
                                          hour=time.hour,
                                          minute=time.minute)
 
+            if is_day_before:
+                run_time -= datetime.timedelta(days=1)
+
             scheduler.add_job(
                 personal_reminder_about_cleaning, "interval",
-                weeks=4, args=[chat_id, campus_number], next_run_time=run_time,
+                weeks=4, args=[chat_id, campus_number, is_day_before], next_run_time=run_time,
                 id=consts.job_id_format.format(
                     chat_id=chat_id, campus_number=campus_number, index=i
                 ), replace_existing=True
@@ -173,7 +198,7 @@ def set_cleaning_reminder(chat_id: int, campus_number: int, time: datetime.time)
 
 @dp.callback_query_handler(inline_timepicker.filter(),
                            state=SetCleaningReminderStates.enter_time)
-async def set_cleaning_reminder_time(query: types.CallbackQuery,
+async def set_cleaning_reminder_time_cb_handler(query: types.CallbackQuery,
                                      state: FSMContext,
                                      callback_data: Dict[str, str]):
     await query.answer()
@@ -190,7 +215,8 @@ async def set_cleaning_reminder_time(query: types.CallbackQuery,
                                  set_cleaning_reminder,
                                  query.from_user.id,
                                  proxy['campus_number_set_reminder'],
-                                 reminder_time
+                                 reminder_time,
+                                 proxy['is_day_before']
                                  )
         await state.finish()
     else:
@@ -208,8 +234,8 @@ async def off_cleaning_reminder_command_handler(msg: types.Message):
     for campus in range(1, 5):
         for ind in range(0, 4):
             if scheduler.get_job(consts.job_id_format.format(
-                chat_id=msg.from_user.id, campus_number=campus, index=ind
-                )):
+                chat_id=msg.from_user.id, campus_number=campus, index=ind)
+            ):
                 campus_set.add(str(campus))
 
     if campus_set:
@@ -272,7 +298,7 @@ async def send_to_everyone(txt):
 
 
 def main():
-    logger.info("Compile .po and .mo before running!")
+    logger.info("Compile .po and .mo before running! Hint: pybabel compile -d locales -D bot")
 
     update_middleware.on_startup(dp)
     logger_middleware.on_startup(dp)

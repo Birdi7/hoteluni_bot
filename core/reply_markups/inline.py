@@ -25,6 +25,18 @@ campus_numbers.add(
     )
 )
 
+
+def get_set_is_day_before_kb():
+    from core.strings.scripts import _
+
+    set_is_day_before_kb = InlineKeyboardMarkup(row_width=1)
+    set_is_day_before_kb.add(
+        InlineKeyboardButton(_('is_day_before_inline_kb_false'), callback_data=set_is_day_before.new(value='1')),
+        InlineKeyboardButton(_('is_day_before_inline_kb_true'), callback_data=set_is_day_before.new(value='0'))
+    )
+    return set_is_day_before_kb
+
+
 __all__ = [
     'available_languages',
     'campus_numbers'

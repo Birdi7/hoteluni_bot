@@ -1,13 +1,13 @@
-aiogram==2.2
+aiogram==2.5.2
 aiodns==2.0.0
 cchardet==2.1.4
 APScheduler==3.6.0
 umongo[motor]==2.1.0
 uvloop==0.12.2
 loguru==0.3.0
-dnspython3==1.15.0
+dnspython==1.16.0
 python-rapidjson==0.7.2
-
+python-dotenv==0.10.3
 
 aioredis==1.2.0
 redis==3.2.1
