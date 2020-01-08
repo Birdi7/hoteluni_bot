@@ -1,5 +1,5 @@
 from umongo import Document, MotorAsyncIOInstance
-from umongo.fields import IntField, StringField, ListField
+from umongo.fields import IntField, ListField, StringField
 
 instance = MotorAsyncIOInstance()
 

@@ -1,7 +1,7 @@
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-from core.strings import LANGUAGE_MAPPING
 from core.reply_markups.callbacks import *
+from core.strings import LANGUAGE_MAPPING
 
 available_languages = InlineKeyboardMarkup()
 available_languages.add(

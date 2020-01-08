@@ -15,20 +15,18 @@ from loguru import logger
 
 import core.reply_markups as markups
 from core import strings
-from core.configs import telegram, database, consts
+from core.configs import consts, database, telegram
 from core.database import db_worker as db
 from core.database.models import user_model
 from core.reply_markups.callbacks.language_choice import language_callback
-from core.reply_markups.inline import available_languages as available_languages_markup
+from core.reply_markups.inline import \
+    available_languages as available_languages_markup
 from core.strings.scripts import _
 from core.utils import decorators
-from core.utils.middlewares import update_middleware, logger_middleware
-from core.utils.states import (
-    MailingEveryoneDialog,
-    SetCleaningReminderStates,
-    OffCleaningReminderStates,
-    ChooseLanguageDialog,
-)
+from core.utils.middlewares import logger_middleware, update_middleware
+from core.utils.states import (ChooseLanguageDialog, MailingEveryoneDialog,
+                               OffCleaningReminderStates,
+                               SetCleaningReminderStates)
 
 logging.basicConfig(
     format="[%(asctime)s] %(levelname)s : %(name)s : %(message)s",

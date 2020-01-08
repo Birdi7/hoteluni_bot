@@ -2,9 +2,10 @@
 This file is created for config which is not depends on a particular project
 and you won't need to specify them, but vars from here are used in other configs
 """
-import pytz
 from datetime import date, timedelta
 from pathlib import Path
+
+import pytz
 
 BASE_DIR: Path = Path().cwd()
 LOGS_FOLDER: Path = BASE_DIR / "logs"

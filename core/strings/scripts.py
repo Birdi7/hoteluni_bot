@@ -2,7 +2,8 @@
 Scripts which are somehow connected to locales
 """
 from aiogram import Dispatcher
-from core.configs.locales import LOCALES_DIR, I18N_DOMAIN
+
+from core.configs.locales import I18N_DOMAIN, LOCALES_DIR
 from core.utils.middlewares.aclmiddleware import ACLMiddleware
 
 i18n = ACLMiddleware(I18N_DOMAIN, LOCALES_DIR)

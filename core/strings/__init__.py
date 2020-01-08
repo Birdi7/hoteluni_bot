@@ -1,2 +1,2 @@
-from .scripts import on_startup, LANGUAGE_MAPPING
 from .keys import *
+from .scripts import LANGUAGE_MAPPING, on_startup

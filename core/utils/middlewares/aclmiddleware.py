@@ -1,10 +1,11 @@
 import logging
+from typing import Any, Tuple
 
+from aiogram import Dispatcher, types
 from aiogram.contrib.middlewares.i18n import I18nMiddleware
-from aiogram import types, Dispatcher
-from core.database.db_worker import get_user
+
 from core.configs.locales import DEFAULT_USER_LOCALE, LANGUAGES
-from typing import Tuple, Any
+from core.database.db_worker import get_user
 
 
 class ACLMiddleware(I18nMiddleware):

@@ -1,4 +1,4 @@
-from aiogram import types, Dispatcher
+from aiogram import Dispatcher, types
 from aiogram.dispatcher.middlewares import BaseMiddleware
 
 from core.database.db_worker import update_user

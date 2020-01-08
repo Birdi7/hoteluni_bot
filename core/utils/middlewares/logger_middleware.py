@@ -1,9 +1,8 @@
-import time
 import logging
+import time
 
-
+from aiogram import Dispatcher, types
 from aiogram.dispatcher.middlewares import BaseMiddleware
-from aiogram import types, Dispatcher
 
 HANDLED_STR = ["Unhandled", "Handled"]
 
