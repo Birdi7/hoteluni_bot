@@ -238,8 +238,13 @@ def set_cleaning_reminder(
                 minute=time.minute,
             )
 
+            job_id = consts.job_id_format.format(
+                chat_id=chat_id, campus_number=campus_number, index=i
+            )
+
             if is_day_before:
                 run_time -= datetime.timedelta(days=1)
+                job_id += ":day_before"
 
             scheduler.add_job(
                 personal_reminder_about_cleaning,
@@ -247,9 +252,7 @@ def set_cleaning_reminder(
                 weeks=4,
                 args=[chat_id, campus_number, is_day_before],
                 next_run_time=run_time,
-                id=consts.job_id_format.format(
-                    chat_id=chat_id, campus_number=campus_number, index=i
-                ),
+                id=job_id,
                 replace_existing=True,
             )
 
