@@ -3,9 +3,7 @@ import asyncio
 from motor import motor_asyncio
 
 from .models.user_model import instance, User
-from core.configs import (
-    database
-)
+from core.configs import database
 
 
 async def update_user(chat_id, **kwargs):

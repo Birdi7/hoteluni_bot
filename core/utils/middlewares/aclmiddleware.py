@@ -13,7 +13,9 @@ class ACLMiddleware(I18nMiddleware):
         super(ACLMiddleware, self).__init__(domain, path, default)
         self.cache = {}
 
-    async def get_user_locale(self, action: str, args: Tuple[Any], user_id: int = None) -> str:
+    async def get_user_locale(
+        self, action: str, args: Tuple[Any], user_id: int = None
+    ) -> str:
         """
         Load user local from DB
         :param user_id:
@@ -32,7 +34,7 @@ class ACLMiddleware(I18nMiddleware):
         if user.locale is not None:  # if user set his locale
             return user.locale
         else:
-            if tg_user.locale in LANGUAGES: 
+            if tg_user.locale in LANGUAGES:
                 return tg_user.locale
             elif super_locale in LANGUAGES:
                 return super_locale
