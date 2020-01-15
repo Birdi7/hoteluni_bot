@@ -2,7 +2,7 @@ import asyncio
 import datetime
 import logging
 import sys
-from typing import Dict, List
+from typing import Dict, Set
 
 from aiogram import Bot, Dispatcher, executor, types
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
@@ -19,14 +19,16 @@ from core.configs import consts, database, telegram
 from core.database import db_worker as db
 from core.database.models import user_model
 from core.reply_markups.callbacks.language_choice import language_callback
-from core.reply_markups.inline import \
-    available_languages as available_languages_markup
+from core.reply_markups.inline import available_languages as available_languages_markup
 from core.strings.scripts import _
 from core.utils import decorators
 from core.utils.middlewares import logger_middleware, update_middleware
-from core.utils.states import (ChooseLanguageDialog, MailingEveryoneDialog,
-                               OffCleaningReminderStates,
-                               SetCleaningReminderStates)
+from core.utils.states import (
+    ChooseLanguageDialog,
+    MailingEveryoneDialog,
+    OffCleaningReminderStates,
+    SetCleaningReminderStates,
+)
 
 logging.basicConfig(
     format="[%(asctime)s] %(levelname)s : %(name)s : %(message)s",
@@ -290,8 +292,8 @@ async def set_cleaning_reminder_time_cb_handler(
         )
 
 
-def _get_existing_reminder_at_the_day_of_cleaning(user_id) -> List[str]:
-    result = []
+def _get_existing_reminder_at_the_day_of_cleaning(user_id) -> Set[str]:
+    result = set()
     for campus in range(1, 5):
         for ind in range(0, 4):
             if scheduler.get_job(
@@ -299,35 +301,89 @@ def _get_existing_reminder_at_the_day_of_cleaning(user_id) -> List[str]:
                     chat_id=user_id, campus_number=campus, index=ind
                 )
             ):
-                result.append(str(campus))
+                result.add(str(campus))
+    return result
+
+
+def _get_existing_reminder_day_before_the_cleaning(user_id) -> Set[str]:
+    result = set()
+    for campus in range(1, 5):
+        for ind in range(0, 4):
+            if scheduler.get_job(
+                consts.job_id_format.format(
+                    chat_id=user_id, campus_number=campus, index=ind
+                )
+                + ":day_before"
+            ):
+                result.add(str(campus))
     return result
 
 
 @dp.message_handler(commands="off", state="*")
-async def off_cleaning_reminder_command_handler(msg: types.Message):
+async def off_cleaning_reminder_command_handler(msg: types.Message, state: FSMContext):
+    reminders_day_before = _get_existing_reminder_day_before_the_cleaning(
+        msg.from_user.id
+    )
+    reminders_at_the_day = _get_existing_reminder_at_the_day_of_cleaning(
+        msg.from_user.id
+    )
+
+    if not reminders_day_before and not reminders_at_the_day:
+        await msg.answer(_("no_reminders_set"))
+        return
+    else:
+        if reminders_at_the_day and reminders_day_before:
+            await msg.answer(
+                _("remove_set_is_day_before"),
+                reply_markup=markups.inline.get_set_is_day_before_kb(),
+            )
+            await OffCleaningReminderStates.enter_is_day_before.set()
+        else:
+            async with state.proxy() as proxy:
+                proxy["is_day_before"] = bool(reminders_day_before)
+                await send_inline_kb_campus_numbers_to_remove_reminders(
+                    msg.from_user.id, proxy["is_day_before"]
+                )
+            await OffCleaningReminderStates.enter_campus_number.set()
+
+
+@dp.callback_query_handler(
+    markups.callbacks.set_is_day_before.filter(),
+    state=OffCleaningReminderStates.enter_is_day_before,
+)
+async def set_is_day_before_for_off_reminder_cb_handler(
+    query: types.CallbackQuery, state, callback_data
+):
+    await query.answer()
+    async with state.proxy() as proxy:
+        proxy["is_day_before"] = callback_data.get("value") == "1"
+        await send_inline_kb_campus_numbers_to_remove_reminders(
+            query.from_user.id, proxy["is_day_before"]
+        )
+    await OffCleaningReminderStates.enter_campus_number.set()
+
+
+async def send_inline_kb_campus_numbers_to_remove_reminders(user_id, is_day_before):
     from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-    campus_set = set(_get_existing_reminder_at_the_day_of_cleaning(msg.from_user.id))
+    existing_reminder_campuses = (
+        _get_existing_reminder_day_before_the_cleaning(user_id)
+        if is_day_before
+        else _get_existing_reminder_at_the_day_of_cleaning(user_id)
+    )
 
-    if campus_set:
-        campus_set = sorted(campus_set)
-
-        kb = InlineKeyboardMarkup(row_width=2)
-        kb.add(
-            *list(
-                InlineKeyboardButton(
-                    str(campus),
-                    callback_data=markups.callbacks.choose_campus_number.new(
-                        number=campus
-                    ),
-                )
-                for campus in campus_set
+    existing_reminder_campuses = sorted(existing_reminder_campuses)
+    kb = InlineKeyboardMarkup(row_width=2)
+    kb.add(
+        *[
+            InlineKeyboardButton(
+                str(campus),
+                callback_data=markups.callbacks.choose_campus_number.new(number=campus),
             )
-        )
-        await msg.answer(_("choose_campus"), reply_markup=kb)
-        await OffCleaningReminderStates.enter_campus_number.set()
-    else:
-        await msg.answer(_("no_reminders_set"))
+            for campus in existing_reminder_campuses
+        ]
+    )
+    await bot.send_message(user_id, _("choose_campus"), reply_markup=kb)
 
 
 @dp.callback_query_handler(
@@ -337,6 +393,9 @@ async def off_cleaning_reminder_command_handler(msg: types.Message):
 async def off_cleaning_reminder_cb_handler(
     query: types.CallbackQuery, state: FSMContext, callback_data: Dict[str, str]
 ):
+    async with state.proxy() as proxy:
+        is_day_before = bool(proxy.get("is_day_before"))
+
     campus = int(callback_data["number"])
     for i in range(0, 4):
         if consts.base_dates_campus_cleaning[campus][i]:
@@ -344,6 +403,7 @@ async def off_cleaning_reminder_cb_handler(
                 job_id=consts.job_id_format.format(
                     chat_id=query.from_user.id, campus_number=campus, index=i
                 )
+                + (":day_before" if is_day_before else "")
             )
 
     await bot.edit_message_text(

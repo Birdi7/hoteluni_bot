@@ -8,4 +8,5 @@ class SetCleaningReminderStates(StatesGroup):
 
 
 class OffCleaningReminderStates(StatesGroup):
+    enter_is_day_before = State()
     enter_campus_number = State()
