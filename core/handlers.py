@@ -2,7 +2,7 @@ import asyncio
 import datetime
 import logging
 import sys
-from typing import Dict
+from typing import Dict, List
 
 from aiogram import Bot, Dispatcher, executor, types
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
@@ -290,19 +290,24 @@ async def set_cleaning_reminder_time_cb_handler(
         )
 
 
-@dp.message_handler(commands="off", state="*")
-async def off_cleaning_reminder_command_handler(msg: types.Message):
-    from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-
-    campus_set = set()
+def _get_existing_reminder_at_the_day_of_cleaning(user_id) -> List[str]:
+    result = []
     for campus in range(1, 5):
         for ind in range(0, 4):
             if scheduler.get_job(
                 consts.job_id_format.format(
-                    chat_id=msg.from_user.id, campus_number=campus, index=ind
+                    chat_id=user_id, campus_number=campus, index=ind
                 )
             ):
-                campus_set.add(str(campus))
+                result.append(str(campus))
+    return result
+
+
+@dp.message_handler(commands="off", state="*")
+async def off_cleaning_reminder_command_handler(msg: types.Message):
+    from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+
+    campus_set = set(_get_existing_reminder_at_the_day_of_cleaning(msg.from_user.id))
 
     if campus_set:
         campus_set = sorted(campus_set)
