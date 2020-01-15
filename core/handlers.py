@@ -360,6 +360,7 @@ async def set_is_day_before_for_off_reminder_cb_handler(
         await send_inline_kb_campus_numbers_to_remove_reminders(
             query.from_user.id, proxy["is_day_before"]
         )
+    await query.message.delete()
     await OffCleaningReminderStates.enter_campus_number.set()
 
 
