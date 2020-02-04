@@ -106,6 +106,17 @@ async def help_command_handler(msg: types.Message):
         msg.chat.id, _("help_cmd_text, formats: {name}").format(name=user.first_name)
     )
 
+@dp.message_handler(commands=["peek"], state="*")
+async def peek_command_handler(msg: types.Message):
+    for job in scheduler.get_jobs():
+        extra = 1 if job.id.endswith("day_before") else 0
+        job_chat_id = job.args[0]
+        if job_chat_id == msg.from_user.id:
+            text = f'{_("remainder_is_scheduled")} {(job.next_run_time + datetime.timedelta(days=extra)).strftime("%d.%m.%Y (%A)")}'
+            break
+    else:
+        text = _("remainder_is_not_scheduled")
+    await bot.send_message(msg.chat.id, text)
 
 @dp.message_handler(commands="language", state="*")
 async def language_cmd_handler(msg: types.Message):

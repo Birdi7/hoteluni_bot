@@ -18,11 +18,11 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.8.0\n"
-
+ 
 #: core/handlers.py:94
 msgid "cancel"
 msgstr "Отменено."
-
+ 
 #: core/handlers.py:99
 msgid "start_cmd_text"
 msgstr ""
@@ -30,7 +30,17 @@ msgstr ""
 "установки напоминания.\n"
 "Язык выбран автоматически на основе языка клиента. /language позволяет "
 "поменять язык."
-
+ 
+#: core/handlers.py:115
+msgid "remainder_is_scheduled"
+msgstr ""
+"Следующая уборка назначена на"
+ 
+#: core/handlers.py:118
+msgid "remainder_is_not_scheduled"
+msgstr ""
+"Нет назначенных уборок. Чтобы включить напоминание, пришли /on"
+ 
 #: core/handlers.py:106
 msgid "help_cmd_text, formats: {name}"
 msgstr ""
@@ -40,67 +50,68 @@ msgstr ""
 "/off - выключить напоминание\n"
 "/start - приветствие\n"
 "/help - данное сообщение\n"
-
+"/peek - посмотреть дату следующей уборки\n"
+ 
 #: core/handlers.py:114
 msgid "choose language"
 msgstr "Выбери язык"
-
+ 
 #: core/handlers.py:132
 msgid "language is set"
 msgstr "Язык установлен"
-
+ 
 #: core/handlers.py:139
 msgid "set_is_day_before"
 msgstr "Когда напомнить?"
-
+ 
 #: core/handlers.py:159 core/handlers.py:386
 msgid "choose_campus"
 msgstr "Выбери кампус"
-
+ 
 #: core/handlers.py:186
 msgid "choose_cleaning_reminder_time"
 msgstr "Выбери время напоминания"
-
+ 
 #: core/handlers.py:200
 msgid "personal_reminder_cleaning_day_before"
 msgstr "Завтра уборка в кампусе <b>{number}</b>"
-
+ 
 #: core/handlers.py:205
 msgid "personal_reminder_cleaning, formats: number"
 msgstr "Сегодня уборка в кампусе <b>{number}</b>"
-
+ 
 #: core/handlers.py:272
 msgid "cleaning_reminder_set"
 msgstr "Напоминание установлено"
-
+ 
 #: core/handlers.py:332
 msgid "no_reminders_set"
 msgstr "Нет установленных напоминаний"
-
+ 
 #: core/handlers.py:337
 msgid "remove_set_is_day_before"
 msgstr "Убрать напоминание в какой день?"
-
+ 
 #: core/handlers.py:408
 msgid "reminder_is_off"
 msgstr "Напоминание выключено"
-
+ 
 #: core/handlers.py:418
 msgid "mailing_everyone"
 msgstr "Следующее сообщение будет отправлено всем."
-
+ 
 #: core/handlers.py:424
 msgid "sent_to_everyone"
 msgstr "Отправлено всем пользователям"
-
+ 
 #: core/reply_markups/inline.py:32
 msgid "is_day_before_inline_kb_false"
 msgstr "За день до уборки"
-
+ 
 #: core/reply_markups/inline.py:36
 msgid "is_day_before_inline_kb_true"
 msgstr "В день уборки"
-
+ 
 #~ msgid "personal_reminder_cleaning, formats: {number}"
 #~ msgstr "Сегодня уборка в кампусе <b>{number}</b>"
 
