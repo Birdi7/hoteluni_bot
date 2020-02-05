@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-01-16 00:41+0500\n"
+"POT-Creation-Date: 2020-02-05 14:42+0300\n"
 "PO-Revision-Date: 2019-07-22 21:06+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.8.0\n"
- 
+
 #: core/handlers.py:94
 msgid "cancel"
 msgstr "Cancelled"
- 
+
 #: core/handlers.py:99
 msgid "start_cmd_text"
 msgstr ""
@@ -29,17 +29,7 @@ msgstr ""
 "the notification.\n"
 "Language was chosen automatically based on your client's language. Use "
 "/language to change."
- 
-#: core/handlers.py:115
-msgid "remainder_is_scheduled"
-msgstr ""
-"The next cleaning is due to"
- 
-#: core/handlers.py:118
-msgid "remainder_is_not_scheduled"
-msgstr ""
-"No cleanings scheduled. Send /on to turn on the remainder"
- 
+
 #: core/handlers.py:106
 msgid "help_cmd_text, formats: {name}"
 msgstr ""
@@ -50,67 +40,83 @@ msgstr ""
 "/start - start message\n"
 "/help - help message\n"
 "/peek - peek the next cleaning day\n"
- 
-#: core/handlers.py:114
+
+#: core/handlers.py:116
+msgid "remainder_is_scheduled"
+msgstr "The next cleaning is due to"
+
+#: core/handlers.py:120
+msgid "remainder_is_not_scheduled"
+msgstr "No cleanings scheduled. Send /on to turn on the remainder"
+
+#: core/handlers.py:130
+msgid "schedule_command_text"
+msgstr "The scheduled cleanings for each dorm respectfully:"
+
+#: core/handlers.py:143
+msgid "scheduled_cleaning"
+msgstr "#{campus_number}: {date}. In {days_left} days"
+
+#: core/handlers.py:152
 msgid "choose language"
 msgstr "Choose language"
- 
-#: core/handlers.py:132
+
+#: core/handlers.py:170
 msgid "language is set"
 msgstr "Language is set"
- 
-#: core/handlers.py:139
+
+#: core/handlers.py:177
 msgid "set_is_day_before"
 msgstr "When to remind you?"
- 
-#: core/handlers.py:159 core/handlers.py:386
+
+#: core/handlers.py:197 core/handlers.py:425
 msgid "choose_campus"
 msgstr "Choose campus"
- 
-#: core/handlers.py:186
+
+#: core/handlers.py:224
 msgid "choose_cleaning_reminder_time"
 msgstr "Choose time of reminder"
- 
-#: core/handlers.py:200
+
+#: core/handlers.py:238
 msgid "personal_reminder_cleaning_day_before"
 msgstr "Tomorrow is the day of cleaning in campus <b>{number}</b>"
- 
-#: core/handlers.py:205
+
+#: core/handlers.py:243
 msgid "personal_reminder_cleaning, formats: number"
 msgstr "Today is the day of cleaning in campus <b>{number}</b>"
- 
-#: core/handlers.py:272
+
+#: core/handlers.py:310
 msgid "cleaning_reminder_set"
 msgstr "Reminder is set"
- 
-#: core/handlers.py:332
+
+#: core/handlers.py:370
 msgid "no_reminders_set"
 msgstr "You have no reminders"
- 
-#: core/handlers.py:337
+
+#: core/handlers.py:375
 msgid "remove_set_is_day_before"
 msgstr "Remove reminder from which day?"
- 
-#: core/handlers.py:408
+
+#: core/handlers.py:449
 msgid "reminder_is_off"
 msgstr "Reminder is turned off"
- 
-#: core/handlers.py:418
+
+#: core/handlers.py:459
 msgid "mailing_everyone"
 msgstr "Next message will be sent to every user"
- 
-#: core/handlers.py:424
+
+#: core/handlers.py:465
 msgid "sent_to_everyone"
 msgstr "Message is sent to everyone"
- 
+
 #: core/reply_markups/inline.py:32
 msgid "is_day_before_inline_kb_false"
 msgstr "The day before cleaning"
- 
+
 #: core/reply_markups/inline.py:36
 msgid "is_day_before_inline_kb_true"
 msgstr "At the day of cleaning"
- 
+
 #~ msgid "personal_reminder_cleaning, formats: {number}"
 #~ msgstr "Cleaning at campus <b>{number}</b> is today"
 

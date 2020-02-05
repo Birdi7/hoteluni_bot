@@ -106,17 +106,44 @@ async def help_command_handler(msg: types.Message):
         msg.chat.id, _("help_cmd_text, formats: {name}").format(name=user.first_name)
     )
 
+
 @dp.message_handler(commands=["peek"], state="*")
 async def peek_command_handler(msg: types.Message):
     for job in scheduler.get_jobs():
         extra = 1 if job.id.endswith("day_before") else 0
         job_chat_id = job.args[0]
         if job_chat_id == msg.from_user.id:
-            text = f'{_("remainder_is_scheduled")} {(job.next_run_time + datetime.timedelta(days=extra)).strftime("%d.%m.%Y (%A)")}'
+            remainder_is_scheduled_text = _("remainder_is_scheduled")
+            text = f'{remainder_is_scheduled_text} {(job.next_run_time + datetime.timedelta(days=extra)).strftime("%d.%m.%Y (%A)")}'
             break
     else:
         text = _("remainder_is_not_scheduled")
     await bot.send_message(msg.chat.id, text)
+
+
+@dp.message_handler(commands=["schedule"], state="*")
+async def schedule_command_handler(msg: types.Message):
+    from core.strings.scripts import i18n
+    scheduled_cleanings = []
+    now = datetime.datetime.now(consts.default_timezone).replace(tzinfo=None)
+    interval = 28
+    text = [_("schedule_command_text"),]
+    for base_dates in consts.base_dates_campus_cleaning.values():
+        days_left = interval
+        for i in range(4):
+            base_date = base_dates[i]
+            if base_date:
+                base_date = datetime.datetime(
+                    year=base_date.year,
+                    month=base_date.month,
+                    day=base_date.day,
+                )
+                days_left = min(interval - (now - base_date).days % interval, days_left)
+        scheduled_cleanings.append(((now + datetime.timedelta(days=days_left)).strftime("%d.%m.%Y (%A)"), days_left))
+    text.extend([_("scheduled_cleaning").format(campus_number=index+1, date=item[0],
+                    days_left=item[1]) for (index, item) in enumerate(scheduled_cleanings)])
+    await bot.send_message(msg.chat.id, '\n'.join(map(str, text)))
+
 
 @dp.message_handler(commands="language", state="*")
 async def language_cmd_handler(msg: types.Message):

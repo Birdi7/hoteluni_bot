@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-01-16 00:41+0500\n"
+"POT-Creation-Date: 2020-02-05 14:42+0300\n"
 "PO-Revision-Date: 2019-07-22 21:06+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.8.0\n"
- 
+
 #: core/handlers.py:94
 msgid "cancel"
 msgstr "Отменено."
- 
+
 #: core/handlers.py:99
 msgid "start_cmd_text"
 msgstr ""
@@ -30,17 +30,7 @@ msgstr ""
 "установки напоминания.\n"
 "Язык выбран автоматически на основе языка клиента. /language позволяет "
 "поменять язык."
- 
-#: core/handlers.py:115
-msgid "remainder_is_scheduled"
-msgstr ""
-"Следующая уборка назначена на"
- 
-#: core/handlers.py:118
-msgid "remainder_is_not_scheduled"
-msgstr ""
-"Нет назначенных уборок. Чтобы включить напоминание, пришли /on"
- 
+
 #: core/handlers.py:106
 msgid "help_cmd_text, formats: {name}"
 msgstr ""
@@ -51,67 +41,83 @@ msgstr ""
 "/start - приветствие\n"
 "/help - данное сообщение\n"
 "/peek - посмотреть дату следующей уборки\n"
- 
-#: core/handlers.py:114
+
+#: core/handlers.py:116
+msgid "remainder_is_scheduled"
+msgstr "Следующая уборка назначена на"
+
+#: core/handlers.py:120
+msgid "remainder_is_not_scheduled"
+msgstr "Нет назначенных уборок. Чтобы включить напоминание, пришли /on"
+
+#: core/handlers.py:130
+msgid "schedule_command_text"
+msgstr "Расписание запланированных уборок для каждого корпуса соответственно:"
+
+#: core/handlers.py:143
+msgid "scheduled_cleaning"
+msgstr "#{campus_number}: {date}. Дней осталось: {days_left}"
+
+#: core/handlers.py:152
 msgid "choose language"
 msgstr "Выбери язык"
- 
-#: core/handlers.py:132
+
+#: core/handlers.py:170
 msgid "language is set"
 msgstr "Язык установлен"
- 
-#: core/handlers.py:139
+
+#: core/handlers.py:177
 msgid "set_is_day_before"
 msgstr "Когда напомнить?"
- 
-#: core/handlers.py:159 core/handlers.py:386
+
+#: core/handlers.py:197 core/handlers.py:425
 msgid "choose_campus"
 msgstr "Выбери кампус"
- 
-#: core/handlers.py:186
+
+#: core/handlers.py:224
 msgid "choose_cleaning_reminder_time"
 msgstr "Выбери время напоминания"
- 
-#: core/handlers.py:200
+
+#: core/handlers.py:238
 msgid "personal_reminder_cleaning_day_before"
 msgstr "Завтра уборка в кампусе <b>{number}</b>"
- 
-#: core/handlers.py:205
+
+#: core/handlers.py:243
 msgid "personal_reminder_cleaning, formats: number"
 msgstr "Сегодня уборка в кампусе <b>{number}</b>"
- 
-#: core/handlers.py:272
+
+#: core/handlers.py:310
 msgid "cleaning_reminder_set"
 msgstr "Напоминание установлено"
- 
-#: core/handlers.py:332
+
+#: core/handlers.py:370
 msgid "no_reminders_set"
 msgstr "Нет установленных напоминаний"
- 
-#: core/handlers.py:337
+
+#: core/handlers.py:375
 msgid "remove_set_is_day_before"
 msgstr "Убрать напоминание в какой день?"
- 
-#: core/handlers.py:408
+
+#: core/handlers.py:449
 msgid "reminder_is_off"
 msgstr "Напоминание выключено"
- 
-#: core/handlers.py:418
+
+#: core/handlers.py:459
 msgid "mailing_everyone"
 msgstr "Следующее сообщение будет отправлено всем."
- 
-#: core/handlers.py:424
+
+#: core/handlers.py:465
 msgid "sent_to_everyone"
 msgstr "Отправлено всем пользователям"
- 
+
 #: core/reply_markups/inline.py:32
 msgid "is_day_before_inline_kb_false"
 msgstr "За день до уборки"
- 
+
 #: core/reply_markups/inline.py:36
 msgid "is_day_before_inline_kb_true"
 msgstr "В день уборки"
- 
+
 #~ msgid "personal_reminder_cleaning, formats: {number}"
 #~ msgstr "Сегодня уборка в кампусе <b>{number}</b>"
 
