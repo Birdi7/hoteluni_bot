@@ -107,20 +107,6 @@ async def help_command_handler(msg: types.Message):
     )
 
 
-@dp.message_handler(commands=["peek"], state="*")
-async def peek_command_handler(msg: types.Message):
-    for job in scheduler.get_jobs():
-        extra = 1 if job.id.endswith("day_before") else 0
-        job_chat_id = job.args[0]
-        if job_chat_id == msg.from_user.id:
-            remainder_is_scheduled_text = _("remainder_is_scheduled")
-            text = f'{remainder_is_scheduled_text} {(job.next_run_time + datetime.timedelta(days=extra)).strftime("%d.%m.%Y (%A)")}'
-            break
-    else:
-        text = _("remainder_is_not_scheduled")
-    await bot.send_message(msg.chat.id, text)
-
-
 @dp.message_handler(commands=["schedule"], state="*")
 async def schedule_command_handler(msg: types.Message):
     from core.strings.scripts import i18n

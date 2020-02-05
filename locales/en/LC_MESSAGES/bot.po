@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-02-05 14:42+0300\n"
+"POT-Creation-Date: 2020-02-05 21:36+0300\n"
 "PO-Revision-Date: 2019-07-22 21:06+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -42,70 +42,62 @@ msgstr ""
 "/peek - peek the next cleaning day\n"
 
 #: core/handlers.py:116
-msgid "remainder_is_scheduled"
-msgstr "The next cleaning is due to"
-
-#: core/handlers.py:120
-msgid "remainder_is_not_scheduled"
-msgstr "No cleanings scheduled. Send /on to turn on the remainder"
-
-#: core/handlers.py:130
 msgid "schedule_command_text"
 msgstr "The scheduled cleanings for each dorm respectfully:"
 
-#: core/handlers.py:143
+#: core/handlers.py:129
 msgid "scheduled_cleaning"
 msgstr "#{campus_number}: {date}. In {days_left} days"
 
-#: core/handlers.py:152
+#: core/handlers.py:138
 msgid "choose language"
 msgstr "Choose language"
 
-#: core/handlers.py:170
+#: core/handlers.py:156
 msgid "language is set"
 msgstr "Language is set"
 
-#: core/handlers.py:177
+#: core/handlers.py:163
 msgid "set_is_day_before"
 msgstr "When to remind you?"
 
-#: core/handlers.py:197 core/handlers.py:425
+#: core/handlers.py:183 core/handlers.py:411
 msgid "choose_campus"
 msgstr "Choose campus"
 
-#: core/handlers.py:224
+#: core/handlers.py:210
 msgid "choose_cleaning_reminder_time"
 msgstr "Choose time of reminder"
 
-#: core/handlers.py:238
+#: core/handlers.py:224
 msgid "personal_reminder_cleaning_day_before"
 msgstr "Tomorrow is the day of cleaning in campus <b>{number}</b>"
 
-#: core/handlers.py:243
+#: core/handlers.py:229
 msgid "personal_reminder_cleaning, formats: number"
 msgstr "Today is the day of cleaning in campus <b>{number}</b>"
 
-#: core/handlers.py:310
+#: core/handlers.py:296
 msgid "cleaning_reminder_set"
 msgstr "Reminder is set"
 
-#: core/handlers.py:370
+#: core/handlers.py:356
 msgid "no_reminders_set"
 msgstr "You have no reminders"
 
-#: core/handlers.py:375
+#: core/handlers.py:361
 msgid "remove_set_is_day_before"
 msgstr "Remove reminder from which day?"
 
-#: core/handlers.py:449
+#: core/handlers.py:435
 msgid "reminder_is_off"
 msgstr "Reminder is turned off"
 
-#: core/handlers.py:459
+#: core/handlers.py:445
 msgid "mailing_everyone"
 msgstr "Next message will be sent to every user"
 
-#: core/handlers.py:465
+#: core/handlers.py:451
 msgid "sent_to_everyone"
 msgstr "Message is sent to everyone"
 
