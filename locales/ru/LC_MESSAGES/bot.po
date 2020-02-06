@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-02-05 21:36+0300\n"
+"POT-Creation-Date: 2020-02-06 11:57+0300\n"
 "PO-Revision-Date: 2019-07-22 21:06+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -46,59 +46,59 @@ msgstr ""
 msgid "schedule_command_text"
 msgstr "Расписание уборок для каждого корпуса соответственно:"
 
-#: core/handlers.py:129
+#: core/handlers.py:133
 msgid "scheduled_cleaning"
 msgstr "#{campus_number}: {date}. Дней осталось: {days_left}"
 
-#: core/handlers.py:138
+#: core/handlers.py:142
 msgid "choose language"
 msgstr "Выбери язык"
 
-#: core/handlers.py:156
+#: core/handlers.py:160
 msgid "language is set"
 msgstr "Язык установлен"
 
-#: core/handlers.py:163
+#: core/handlers.py:167
 msgid "set_is_day_before"
 msgstr "Когда напомнить?"
 
-#: core/handlers.py:183 core/handlers.py:411
+#: core/handlers.py:187 core/handlers.py:415
 msgid "choose_campus"
 msgstr "Выбери кампус"
 
-#: core/handlers.py:210
+#: core/handlers.py:214
 msgid "choose_cleaning_reminder_time"
 msgstr "Выбери время напоминания"
 
-#: core/handlers.py:224
+#: core/handlers.py:228
 msgid "personal_reminder_cleaning_day_before"
 msgstr "Завтра уборка в кампусе <b>{number}</b>"
 
-#: core/handlers.py:229
+#: core/handlers.py:233
 msgid "personal_reminder_cleaning, formats: number"
 msgstr "Сегодня уборка в кампусе <b>{number}</b>"
 
-#: core/handlers.py:296
+#: core/handlers.py:300
 msgid "cleaning_reminder_set"
 msgstr "Напоминание установлено"
 
-#: core/handlers.py:356
+#: core/handlers.py:360
 msgid "no_reminders_set"
 msgstr "Нет установленных напоминаний"
 
-#: core/handlers.py:361
+#: core/handlers.py:365
 msgid "remove_set_is_day_before"
 msgstr "Убрать напоминание в какой день?"
 
-#: core/handlers.py:435
+#: core/handlers.py:439
 msgid "reminder_is_off"
 msgstr "Напоминание выключено"
 
-#: core/handlers.py:445
+#: core/handlers.py:449
 msgid "mailing_everyone"
 msgstr "Следующее сообщение будет отправлено всем."
 
-#: core/handlers.py:451
+#: core/handlers.py:455
 msgid "sent_to_everyone"
 msgstr "Отправлено всем пользователям"
 

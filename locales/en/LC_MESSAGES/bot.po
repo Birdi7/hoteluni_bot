@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-02-05 21:36+0300\n"
+"POT-Creation-Date: 2020-02-06 11:57+0300\n"
 "PO-Revision-Date: 2019-07-22 21:06+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -45,59 +45,59 @@ msgstr ""
 msgid "schedule_command_text"
 msgstr "The scheduled cleanings for each dorm respectfully:"
 
-#: core/handlers.py:129
+#: core/handlers.py:133
 msgid "scheduled_cleaning"
 msgstr "#{campus_number}: {date}. In {days_left} days"
 
-#: core/handlers.py:138
+#: core/handlers.py:142
 msgid "choose language"
 msgstr "Choose language"
 
-#: core/handlers.py:156
+#: core/handlers.py:160
 msgid "language is set"
 msgstr "Language is set"
 
-#: core/handlers.py:163
+#: core/handlers.py:167
 msgid "set_is_day_before"
 msgstr "When to remind you?"
 
-#: core/handlers.py:183 core/handlers.py:411
+#: core/handlers.py:187 core/handlers.py:415
 msgid "choose_campus"
 msgstr "Choose campus"
 
-#: core/handlers.py:210
+#: core/handlers.py:214
 msgid "choose_cleaning_reminder_time"
 msgstr "Choose time of reminder"
 
-#: core/handlers.py:224
+#: core/handlers.py:228
 msgid "personal_reminder_cleaning_day_before"
 msgstr "Tomorrow is the day of cleaning in campus <b>{number}</b>"
 
-#: core/handlers.py:229
+#: core/handlers.py:233
 msgid "personal_reminder_cleaning, formats: number"
 msgstr "Today is the day of cleaning in campus <b>{number}</b>"
 
-#: core/handlers.py:296
+#: core/handlers.py:300
 msgid "cleaning_reminder_set"
 msgstr "Reminder is set"
 
-#: core/handlers.py:356
+#: core/handlers.py:360
 msgid "no_reminders_set"
 msgstr "You have no reminders"
 
-#: core/handlers.py:361
+#: core/handlers.py:365
 msgid "remove_set_is_day_before"
 msgstr "Remove reminder from which day?"
 
-#: core/handlers.py:435
+#: core/handlers.py:439
 msgid "reminder_is_off"
 msgstr "Reminder is turned off"
 
-#: core/handlers.py:445
+#: core/handlers.py:449
 msgid "mailing_everyone"
 msgstr "Next message will be sent to every user"
 
-#: core/handlers.py:451
+#: core/handlers.py:455
 msgid "sent_to_everyone"
 msgstr "Message is sent to everyone"
 
