@@ -113,7 +113,9 @@ async def schedule_command_handler(msg: types.Message):
 
     next_cleaning_dates = []
     now = datetime.datetime.now(consts.default_timezone).replace(tzinfo=None)
-    text = [_("schedule_command_text"),]
+    text = [
+        _("schedule_command_text"),
+    ]
 
     for base_dates in consts.base_dates_campus_cleaning.values():
         days_left = consts.interval
@@ -121,18 +123,27 @@ async def schedule_command_handler(msg: types.Message):
             base_date = base_dates[i]
             if base_date:
                 base_date = datetime.datetime(
-                    year=base_date.year,
-                    month=base_date.month,
-                    day=base_date.day,
+                    year=base_date.year, month=base_date.month, day=base_date.day,
                 )
-                days_left = min(consts.interval - (now - base_date).days % consts.interval, days_left)
+                days_left = min(
+                    consts.interval - (now - base_date).days % consts.interval,
+                    days_left,
+                )
 
         next_cleaning = now + datetime.timedelta(days=days_left)
-        next_cleaning_dates.append(((next_cleaning).strftime("%d.%m.%Y (%A)"), days_left))
-        
-    text.extend([_("scheduled_cleaning").format(campus_number=index+1, date=date,
-                    days_left=days_left) for (index, (date, days_left)) in enumerate(next_cleaning_dates)])
-    await bot.send_message(msg.chat.id, '\n'.join(map(str, text)))
+        next_cleaning_dates.append(
+            ((next_cleaning).strftime("%d.%m.%Y (%A)"), days_left)
+        )
+
+    text.extend(
+        [
+            _("scheduled_cleaning").format(
+                campus_number=index + 1, date=date, days_left=days_left
+            )
+            for (index, (date, days_left)) in enumerate(next_cleaning_dates)
+        ]
+    )
+    await bot.send_message(msg.chat.id, "\n".join(map(str, text)))
 
 
 @dp.message_handler(commands="language", state="*")
