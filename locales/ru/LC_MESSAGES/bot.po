@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-02-06 11:57+0300\n"
+"POT-Creation-Date: 2020-02-06 18:41+0300\n"
 "PO-Revision-Date: 2019-07-22 21:06+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -40,65 +40,65 @@ msgstr ""
 "/off - выключить напоминание\n"
 "/start - приветствие\n"
 "/help - данное сообщение\n"
-"/peek - посмотреть дату следующей уборки\n"
+"/schedule - узнать расписание предстоящих уборок для каждого кампуса\n"
 
-#: core/handlers.py:116
+#: core/handlers.py:117
 msgid "schedule_command_text"
 msgstr "Расписание уборок для каждого корпуса соответственно:"
 
-#: core/handlers.py:133
+#: core/handlers.py:138
 msgid "scheduled_cleaning"
 msgstr "#{campus_number}: {date}. Дней осталось: {days_left}"
 
-#: core/handlers.py:142
+#: core/handlers.py:151
 msgid "choose language"
 msgstr "Выбери язык"
 
-#: core/handlers.py:160
+#: core/handlers.py:169
 msgid "language is set"
 msgstr "Язык установлен"
 
-#: core/handlers.py:167
+#: core/handlers.py:176
 msgid "set_is_day_before"
 msgstr "Когда напомнить?"
 
-#: core/handlers.py:187 core/handlers.py:415
+#: core/handlers.py:196 core/handlers.py:424
 msgid "choose_campus"
 msgstr "Выбери кампус"
 
-#: core/handlers.py:214
+#: core/handlers.py:223
 msgid "choose_cleaning_reminder_time"
 msgstr "Выбери время напоминания"
 
-#: core/handlers.py:228
+#: core/handlers.py:237
 msgid "personal_reminder_cleaning_day_before"
 msgstr "Завтра уборка в кампусе <b>{number}</b>"
 
-#: core/handlers.py:233
+#: core/handlers.py:242
 msgid "personal_reminder_cleaning, formats: number"
 msgstr "Сегодня уборка в кампусе <b>{number}</b>"
 
-#: core/handlers.py:300
+#: core/handlers.py:309
 msgid "cleaning_reminder_set"
 msgstr "Напоминание установлено"
 
-#: core/handlers.py:360
+#: core/handlers.py:369
 msgid "no_reminders_set"
 msgstr "Нет установленных напоминаний"
 
-#: core/handlers.py:365
+#: core/handlers.py:374
 msgid "remove_set_is_day_before"
 msgstr "Убрать напоминание в какой день?"
 
-#: core/handlers.py:439
+#: core/handlers.py:448
 msgid "reminder_is_off"
 msgstr "Напоминание выключено"
 
-#: core/handlers.py:449
+#: core/handlers.py:458
 msgid "mailing_everyone"
 msgstr "Следующее сообщение будет отправлено всем."
 
-#: core/handlers.py:455
+#: core/handlers.py:464
 msgid "sent_to_everyone"
 msgstr "Отправлено всем пользователям"
 

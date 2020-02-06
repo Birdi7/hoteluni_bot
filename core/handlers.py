@@ -118,22 +118,20 @@ async def schedule_command_handler(msg: types.Message):
     ]
 
     for base_dates in consts.base_dates_campus_cleaning.values():
-        days_left = consts.interval
-        for i in range(4):
-            base_date = base_dates[i]
+        days_left = consts.cleaning_interval
+        for base_date in base_dates:
             if base_date:
                 base_date = datetime.datetime(
                     year=base_date.year, month=base_date.month, day=base_date.day,
                 )
                 days_left = min(
-                    consts.interval - (now - base_date).days % consts.interval,
+                    consts.cleaning_interval
+                    - (now - base_date).days % consts.cleaning_interval,
                     days_left,
                 )
 
         next_cleaning = now + datetime.timedelta(days=days_left)
-        next_cleaning_dates.append(
-            ((next_cleaning).strftime("%d.%m.%Y (%A)"), days_left)
-        )
+        next_cleaning_dates.append((next_cleaning.strftime("%d.%m.%Y (%A)"), days_left))
 
     text.extend(
         [
