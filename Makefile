@@ -12,13 +12,9 @@ updatetext:
 compiletext:
 	pybabel compile -d locales -D bot
 
-migrate:
-	alembic upgrade head
-
 update:
 	make gettext
 	make updatetext
 
 build:
 	make compiletext
-	make migrate
