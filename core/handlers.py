@@ -469,7 +469,9 @@ async def mailing_everyone_handler(msg: types.Message, state: FSMContext):
 async def send_to_everyone(txt):
     async for u in user_model.User.find({}).raw_cursor:
         try:
-            await bot.send_message(u.chat_id, txt)
+            chat_id = u.get("chat_id")
+            if chat_id:
+                await bot.send_message(chat_id, txt)
         except TelegramAPIError:
             pass
         await asyncio.sleep(0.5)
