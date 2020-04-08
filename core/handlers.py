@@ -467,7 +467,7 @@ async def mailing_everyone_handler(msg: types.Message, state: FSMContext):
 
 
 async def send_to_everyone(txt):
-    for u in user_model.User.objects():
+    for u in user_model.User.find_many({}):
         try:
             await bot.send_message(u.chat_id, txt)
         except TelegramAPIError:
