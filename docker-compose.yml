@@ -10,7 +10,10 @@ services:
       - .env
     volumes:
       - "./logs:/app/logs"
-
+    depends_on:
+      - redis
+      - db
+      
   redis:
     image: redis:alpine
     volumes:
@@ -21,9 +24,15 @@ services:
 
 
     command: ["redis-server", "--appendonly", "yes"]
+  
+  db:
+    image: mongo:4.4
+    restart: always
 
+#    environment:
+#      MONGO_INITDB_ROOT_USERNAME: root
+#      MONGO_INITDB_ROOT_PASSWORD: example
 
-
-
+  
 volumes:
   redis_data:

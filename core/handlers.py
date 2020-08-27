@@ -455,6 +455,7 @@ async def off_cleaning_reminder_cb_handler(
 @decorators.admin
 @dp.message_handler(commands=["send_to_everyone"], state="*")
 async def send_to_everyone_command_handler(msg: types.Message):
+    #NOTE: i am not sure where it works
     await bot.send_message(msg.chat.id, _("mailing_everyone"))
     await MailingEveryoneDialog.first()
 
