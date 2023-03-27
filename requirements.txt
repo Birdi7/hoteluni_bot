@@ -10,5 +10,5 @@ python-rapidjson==0.7.2
 python-dotenv==0.10.3
 
 aioredis==1.2.0
-redis==3.2.1
+redis==4.5.3
 https://github.com/Birdi7/inline-timepicker/archive/master.zip
